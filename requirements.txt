@@ -1,1 +1,10 @@
-pip install pandas numpy matplotlib scikit-learn xgboost lightgbm requests joblib
+flask
+pandas
+numpy
+matplotlib
+scikit-learn
+xgboost
+lightgbm
+requests
+joblib
+gunicorn
