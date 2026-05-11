@@ -24,7 +24,7 @@ def forecast():
     # This is where you would call your ML model functions
     # For now, it returns a placeholder
     return jsonify({
-        "asset": "BTC/USDT",
+        "asset": "ETH/USDT",
         "prediction": "Bullish",
         "probability": 0.85,
         "timestamp": "2026-05-11"
