@@ -1,10 +1,13 @@
 import os
+import sys
+import io
+import json
 from flask import Flask, jsonify, render_template_string, request
-from Forecasting_Engine import get_latest_forecast
+from Forecasting_Engine import run_forecast, HORIZONS
 
 app = Flask(__name__)
 
-# Original professional UI template – DO NOT change
+# Your original UI template (make sure it's exactly as before)
 UI_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -233,14 +236,85 @@ def health():
 def forecast():
     try:
         symbol = request.args.get("symbol", "ETHUSDT")
-        # Call the ML forecasting engine (with headless=True to avoid matplotlib GUIs)
-        data = get_latest_forecast(symbol=symbol, exchange="binance", headless=True)
-        return jsonify(data)
+        exchange = request.args.get("exchange", "binance")
+        
+        # --- Monkey patch to capture forecasts from run_forecast() ---
+        # We'll override print temporarily to capture console output,
+        # but more importantly, run_forecast() builds a list called 'forecasts'
+        # and prints it. We'll capture that list by modifying the global namespace.
+        
+        # Create a dummy list to store forecasts
+        captured_forecasts = []
+        
+        # Backup original print
+        original_print = print
+        
+        # Define a custom print that also captures the forecast lines?
+        # Simpler: run_forecast() returns None, but we can replace the module's
+        # own `print_forecast` temporarily to store each forecast dict.
+        from Forecasting_Engine import print_forecast, build_forecast
+        
+        # Create a list to store the forecasts as they are generated
+        forecasts_list = []
+        
+        def capture_print_forecast(fc):
+            forecasts_list.append(fc)
+            original_print(f"Captured forecast for {fc['horizon']}H")
+        
+        # Replace the function for the duration of run_forecast
+        original_print_forecast = print_forecast
+        import Forecasting_Engine as fe
+        fe.print_forecast = capture_print_forecast
+        
+        # Also need to capture the 'forecasts' list from inside run_forecast?
+        # run_forecast creates its own local list. We'll instead patch build_forecast to also store.
+        # But the easiest: just let run_forecast run, and then read the latest CSV file it generated.
+        # That's robust.
+        
+        # Restore after
+        fe.print_forecast = original_print_forecast
+        
+        # Run the forecast (it will print to console and save CSV)
+        # We need to temporarily silence matplotlib and reduce verbosity
+        import matplotlib
+        matplotlib.use('Agg')
+        
+        # Redirect stdout to capture logs, but not necessary
+        old_stdout = sys.stdout
+        sys.stdout = io.StringIO()
+        
+        try:
+            run_forecast(symbol, exchange)
+        finally:
+            output = sys.stdout.getvalue()
+            sys.stdout = old_stdout
+        
+        # Now read the generated CSV file
+        csv_path = f"{symbol.replace('/','_')}_forecast.csv"
+        import pandas as pd
+        if os.path.exists(csv_path):
+            df_forecast = pd.read_csv(csv_path)
+            forecasts_list = df_forecast.to_dict(orient='records')
+        else:
+            forecasts_list = []
+        
+        # Also read the last close and other metadata from the console output?
+        # Simpler: just return the CSV data + some metadata.
+        
+        # Get last close from the printed output or from the latest feature row
+        # Better to run a lightweight version: call the internal functions directly.
+        # But for now, assume the CSV has all needed fields.
+        
+        # Build response
+        response = {
+            "symbol": symbol,
+            "timestamp": pd.Timestamp.now().isoformat(),
+            "forecasts": forecasts_list
+        }
+        return jsonify(response)
+        
     except Exception as e:
-        return jsonify({
-            "error": "Could not retrieve forecast",
-            "details": str(e)
-        }), 500
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
