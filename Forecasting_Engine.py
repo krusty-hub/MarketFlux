@@ -175,21 +175,136 @@ def fetch_open_interest(symbol: str) -> float:
     except Exception:
         return 0.0
 
+# ── Kraken  (no geo-restrictions – works on Render / Colab / AWS) ────────────
+KRAKEN_SYMBOL_MAP = {
+    "ETHUSDT":"ETHUSD","BTCUSDT":"XBTUSD","SOLUSDT":"SOLUSD",
+    "BNBUSDT":"BNBUSD","ADAUSDT":"ADAUSD","XRPUSDT":"XRPUSD",
+    "DOGEUSDT":"XDGUSD","LINKUSDT":"LINKUSD","MATICUSDT":"MATICUSD",
+    "AVAXUSDT":"AVAXUSD","DOTUSDT":"DOTUSD","UNIUSDT":"UNIUSD",
+}
+KRAKEN_TF = {"5m":"5","15m":"15","1h":"60","4h":"240"}
+
+def fetch_kraken(symbol: str, interval: str, limit: int = CANDLES_LIMIT) -> Optional[pd.DataFrame]:
+    """Kraken public OHLC – unrestricted on cloud IPs."""
+    kraken_sym = KRAKEN_SYMBOL_MAP.get(symbol.upper(), symbol.replace("USDT","USD"))
+    try:
+        r = requests.get(
+            "https://api.kraken.com/0/public/OHLC",
+            params={"pair": kraken_sym, "interval": KRAKEN_TF.get(interval, "60")},
+            headers=HEADERS, timeout=20,
+        )
+        r.raise_for_status()
+        result = r.json()
+        if result.get("error"):
+            log.warning(f"Kraken error for {kraken_sym}: {result['error']}")
+            return None
+        pair_data = [v for k, v in result["result"].items() if k != "last"]
+        if not pair_data:
+            return None
+        rows = pair_data[0][-limit:]
+        df = pd.DataFrame(rows, columns=["time","open","high","low","close","vwap","volume","count"])
+        df["date"] = pd.to_datetime(df["time"].astype(int), unit="s", utc=True)
+        for c in ["open","high","low","close","volume"]:
+            df[c] = df[c].astype(float)
+        return df[["date","open","high","low","close","volume"]].set_index("date").sort_index()
+    except Exception as e:
+        log.warning(f"Kraken {symbol} {interval}: {e}")
+        return None
+
+# ── CoinGecko  (free tier, no auth needed, unrestricted) ─────────────────────
+COINGECKO_ID_MAP = {
+    "ETHUSDT":"ethereum","BTCUSDT":"bitcoin","SOLUSDT":"solana",
+    "BNBUSDT":"binancecoin","ADAUSDT":"cardano","XRPUSDT":"ripple",
+    "DOGEUSDT":"dogecoin","LINKUSDT":"chainlink","MATICUSDT":"matic-network",
+    "AVAXUSDT":"avalanche-2","DOTUSDT":"polkadot","UNIUSDT":"uniswap",
+}
+
+def fetch_coingecko(symbol: str, interval: str, limit: int = CANDLES_LIMIT) -> Optional[pd.DataFrame]:
+    """
+    CoinGecko /coins/{id}/ohlc – returns up to 90 days of hourly OHLC.
+    Resampled to the requested interval.
+    """
+    cg_id = COINGECKO_ID_MAP.get(symbol.upper())
+    if not cg_id:
+        log.warning(f"CoinGecko: no ID mapping for {symbol}")
+        return None
+    try:
+        r = requests.get(
+            f"https://api.coingecko.com/api/v3/coins/{cg_id}/ohlc",
+            params={"vs_currency":"usd","days":"90"},
+            headers=HEADERS, timeout=30,
+        )
+        r.raise_for_status()
+        raw = r.json()
+        if not raw or isinstance(raw, dict):
+            log.warning(f"CoinGecko unexpected format for {cg_id}")
+            return None
+        df = pd.DataFrame(raw, columns=["timestamp","open","high","low","close"])
+        df["date"]   = pd.to_datetime(df["timestamp"], unit="ms", utc=True)
+        df["volume"] = 0.0   # OHLC endpoint omits volume
+        for c in ["open","high","low","close"]:
+            df[c] = df[c].astype(float)
+        df = df[["date","open","high","low","close","volume"]].set_index("date").sort_index()
+        rule_map = {"5m":"5min","15m":"15min","1h":"1h","4h":"4h"}
+        df = df.resample(rule_map.get(interval,"1h")).agg(
+            {"open":"first","high":"max","low":"min","close":"last","volume":"sum"}
+        ).dropna()
+        return df.tail(limit)
+    except Exception as e:
+        log.warning(f"CoinGecko {symbol} {interval}: {e}")
+        return None
+
+
+def fetch_candles(symbol: str, interval: str, preferred: str = "binance") -> Optional[pd.DataFrame]:
+    """
+    Try all four data sources in order until one returns ≥50 rows.
+    Priority: preferred → other primary → Kraken → CoinGecko
+    Kraken and CoinGecko are always available on cloud/Render deployments.
+    """
+    all_fetchers = {
+        "binance":   fetch_binance,
+        "bybit":     fetch_bybit,
+        "kraken":    fetch_kraken,
+        "coingecko": fetch_coingecko,
+    }
+    order = [preferred]
+    for name in ["binance","bybit","kraken","coingecko"]:
+        if name not in order:
+            order.append(name)
+
+    for name in order:
+        fn = all_fetchers.get(name)
+        if fn is None:
+            continue
+        df = fn(symbol, interval)
+        if df is not None and len(df) >= 50:
+            log.info(f"  ✓ {interval} via {name}: {len(df)} candles "
+                     f"(last: {df.index[-1].strftime('%Y-%m-%d %H:%M')})")
+            return df
+        if df is not None:
+            log.info(f"  ~ {interval} via {name}: only {len(df)} rows, trying next…")
+
+    log.warning(f"  ✗ All sources failed for {interval}")
+    return None
+
+
 def fetch_multi_timeframe(symbol: str, exchange: str = "binance") -> Dict[str, pd.DataFrame]:
-    """Fetch OHLCV for all timeframes from chosen exchange, with fallback."""
-    fetcher = fetch_binance if exchange == "binance" else fetch_bybit
-    fallback = fetch_bybit if exchange == "binance" else fetch_binance
+    """
+    Fetch OHLCV for all timeframes.
+    Falls through Binance → Bybit → Kraken → CoinGecko automatically.
+    Render/cloud deployments will transparently use Kraken or CoinGecko.
+    """
     result = {}
     for tf in TIMEFRAMES:
-        df = fetcher(symbol, tf)
-        if df is None or len(df) < 100:
-            log.info(f"  Fallback to secondary exchange for {tf}")
-            df = fallback(symbol, tf)
-        if df is not None and len(df) >= 50:
+        df = fetch_candles(symbol, tf, preferred=exchange)
+        if df is not None:
             result[tf] = df.copy()
-            log.info(f"  ✓ {tf}: {len(df)} candles  (last: {df.index[-1].strftime('%Y-%m-%d %H:%M')})")
-        else:
-            log.warning(f"  ✗ Could not fetch {tf} data")
+    if not result:
+        log.error(
+            "All exchanges failed. On Render/cloud, Binance (451) and Bybit (403) "
+            "are geo-blocked. Kraken and CoinGecko should still work – "
+            "check network connectivity."
+        )
     return result
 
 
@@ -808,8 +923,13 @@ def run_forecast(symbol: str = "ETHUSDT", exchange: str = "binance"):
     # ── 1. Fetch data ─────────────────────────────────────────────────────────
     tf_data = fetch_multi_timeframe(symbol, exchange)
     if not tf_data:
-        log.error("No data retrieved. Check your internet connection / symbol name.")
-        return
+        msg = (
+            f"No OHLCV data for {symbol}. "
+            "Binance/Bybit are geo-blocked on cloud (451/403). "
+            "Kraken and CoinGecko fallbacks also failed – check connectivity."
+        )
+        log.error(msg)
+        raise RuntimeError(msg)
 
     # Use 1H as the primary modelling timeframe
     primary_tf = "1h" if "1h" in tf_data else list(tf_data.keys())[0]
@@ -833,8 +953,13 @@ def run_forecast(symbol: str = "ETHUSDT", exchange: str = "binance"):
 
     log.info(f"Dataset: {len(df)} rows  ×  {len(feature_cols)} features")
     if len(df) < 150:
-        log.error("Not enough data to train reliably (need ≥ 150 rows). Exiting.")
-        return
+        msg = (
+            f"Only {len(df)} rows after feature engineering (need ≥150). "
+            "The data source returned too little history. "
+            "Try a different symbol or exchange."
+        )
+        log.error(msg)
+        raise RuntimeError(msg)
 
     # ── 3-4. Train ensemble per horizon ──────────────────────────────────────
     trained_models: Dict[int, ForecastModel] = {}
