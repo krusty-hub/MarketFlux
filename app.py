@@ -27,8 +27,8 @@ matplotlib.use("Agg")
 from flask import Flask, jsonify, render_template_string, request
 
 try:
-    import Forecasting_Engine_RealTime as FE_RT
-    from Forecasting_Engine_RealTime import (
+    import Forecasting_Engine as FE_RT
+    from Forecasting_Engine import (
         run_forecast_realtime,
         get_live_price_with_retry,
         SUPPORTED_PAIRS,
@@ -36,8 +36,8 @@ try:
     )
 except ImportError as e:
     sys.exit(
-        f"[FATAL] Cannot import Forecasting_Engine_RealTime: {e}\n"
-        "Ensure Forecasting_Engine_RealTime.py is in the same directory."
+        f"[FATAL] Cannot import Forecasting_Engine: {e}\n"
+        "Ensure Forecasting_Engine.py is in the same directory."
     )
 
 import pandas as pd
@@ -493,7 +493,7 @@ def home():
 def health():
     return jsonify({
         "status": "ok",
-        "engine": "Forecasting_Engine_RealTime",
+        "engine": "Forecasting_Engine",
         "horizons": HORIZONS,
         "supported_pairs": list(SUPPORTED_PAIRS.keys())
     })
