@@ -16,7 +16,7 @@ Install:
   pip install pandas numpy matplotlib scikit-learn xgboost lightgbm requests joblib ccxt
 
 Usage:
-  from Forecasting_Engine_RealTime import get_live_price, run_forecast_realtime
+  from Forecasting_Engine import get_live_price, run_forecast_realtime
   price, source = get_live_price("ETHUSDT")  # Returns (2267.45, "binance")
   forecasts = run_forecast_realtime("ETHUSDT", exchange="binance")
 """
