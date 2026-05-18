@@ -2,7 +2,7 @@
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║   ADAPTIVE CRYPTO FORECASTING ENGINE – INSTITUTIONAL TRADING INTELLIGENCE    ║
 ║   ENHANCED WITH SMC + ICT + ML CONFLUENCE                                    ║
-║   SHORT-TERM HORIZONS ONLY: 2HR | 4HR | 8HR | 12HR                           ║
+║   SHORT-TERM HORIZONS ONLY: 2HR | 4HR | 8HR | 12HR                          ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
 UPGRADES:
@@ -307,7 +307,8 @@ def fetch_kraken_ohlcv(symbol: str, timeframe: str) -> Optional[pd.DataFrame]:
             return None
         
         ohlc_data = list(data["result"].values())[0]
-        df = pd.DataFrame(ohlc_data, columns=["timestamp", "open", "high", "low", "close", "volume", "count"])
+        # Kraken returns: [timestamp, open, high, low, close, vwap, volume, count]
+        df = pd.DataFrame(ohlc_data, columns=["timestamp", "open", "high", "low", "close", "vwap", "volume", "count"])
         df["timestamp"] = pd.to_datetime(df["timestamp"], unit="s")
         df[["open", "high", "low", "close", "volume"]] = df[["open", "high", "low", "close", "volume"]].astype(float)
         df = df.set_index("timestamp")[["open", "high", "low", "close", "volume"]]
