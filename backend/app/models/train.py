@@ -16,22 +16,27 @@ Steps:
 """
 from __future__ import annotations
 
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
+import os
+os.environ["PYTHONWARNINGS"] = "ignore"
+
 import argparse
 import logging
 import sys
-import warnings
 from datetime import datetime, timezone
-
-warnings.filterwarnings("ignore", category=UserWarning)
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import (
     classification_report,
     precision_score,
     accuracy_score,
+    recall_score,
+    f1_score,
 )
 
 # Allow running as a module or directly
@@ -98,15 +103,14 @@ def run_training(
         raise RuntimeError(f"Not enough clean data after feature engineering ({len(df)} rows). "
                            "Increase --limit.")
 
-    # ── Step 3: Train / Test Split (time-based, no shuffle) ──────────────────
-    log.info("Step 3: Splitting train / test (no data leakage) …")
-    X = df[feature_cols].values
+    # ── Step 3: Train / Test Split (Stratified) ──────────────────
+    log.info("Step 3: Splitting train / test (stratified) …")
+    X = df[feature_cols]  # Pass as DataFrame, NOT .values
     y = df["target"].values
 
-    # Time-based split: last test_size fraction is the OOS test set
-    split_idx = int(len(X) * (1 - test_size))
-    X_train, X_test = X[:split_idx], X[split_idx:]
-    y_train, y_test = y[:split_idx], y[split_idx:]
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=test_size, stratify=y, random_state=42
+    )
     log.info(f"  Train: {len(X_train)} | Test (OOS): {len(X_test)}")
 
     # ── Step 4: Train new model ───────────────────────────────────────────────
@@ -116,14 +120,16 @@ def run_training(
 
     # ── Step 5: Evaluate on OOS test set ─────────────────────────────────────
     log.info("Step 5: Evaluating on out-of-sample test set …")
-    new_prob   = new_model.predict_proba(X_test.reshape(len(X_test), -1))
     # Convert probabilities to binary predictions
-    new_preds  = (np.array([new_model.predict_proba(X_test[i:i+1]) for i in range(len(X_test))]) >= 0.5).astype(int)
+    new_preds  = (np.array([new_model.predict_proba(X_test.iloc[[i]]) for i in range(len(X_test))]) >= 0.5).astype(int)
 
     new_win_rate = float(accuracy_score(y_test, new_preds))
     new_precision = float(precision_score(y_test, new_preds, zero_division=0))
+    new_recall = float(recall_score(y_test, new_preds, zero_division=0))
+    new_f1 = float(f1_score(y_test, new_preds, zero_division=0))
+
     log.info(f"\n{classification_report(y_test, new_preds, labels=[0, 1], target_names=['LOSS', 'WIN'], zero_division=0)}")
-    log.info(f"  New model win rate (OOS): {new_win_rate:.1%} | Precision: {new_precision:.3f}")
+    log.info(f"  New model (Class 1) -> Precision: {new_precision:.3f} | Recall: {new_recall:.3f} | F1-Score: {new_f1:.3f}")
 
     # ── Step 6: Compare with active model ────────────────────────────────────
     log.info("Step 6: Comparing with active model …")
@@ -131,18 +137,22 @@ def run_training(
     should_promote = True
 
     if active is not None and active.trained:
-        old_preds = (np.array([active.predict_proba(X_test[i:i+1]) for i in range(len(X_test))]) >= 0.5).astype(int)
-        old_win_rate = float(accuracy_score(y_test, old_preds))
-        log.info(f"  Active model win rate (OOS): {old_win_rate:.1%}")
+        old_preds = (np.array([active.predict_proba(X_test.iloc[[i]]) for i in range(len(X_test))]) >= 0.5).astype(int)
+        old_precision = float(precision_score(y_test, old_preds, zero_division=0))
+        old_recall = float(recall_score(y_test, old_preds, zero_division=0))
+        old_f1 = float(f1_score(y_test, old_preds, zero_division=0))
+        
+        log.info(f"  Active model (Class 1) -> Precision: {old_precision:.3f} | Recall: {old_recall:.3f} | F1-Score: {old_f1:.3f}")
 
-        if new_win_rate <= old_win_rate:
+        # Promote if F1 and Precision are improved or equal but overall better
+        if new_f1 < old_f1 or (new_f1 == old_f1 and new_precision <= old_precision):
             should_promote = False
             log.warning(
-                f"  New model ({new_win_rate:.1%}) does not beat active model ({old_win_rate:.1%}). "
+                f"  New model (F1: {new_f1:.3f}) does not beat active model (F1: {old_f1:.3f}). "
                 "Not promoting."
             )
         else:
-            log.info(f"  New model wins (+{new_win_rate - old_win_rate:.1%}). Promoting.")
+            log.info(f"  New model wins (F1: {new_f1:.3f} > {old_f1:.3f}). Promoting.")
     else:
         log.info("  No active model found. Promoting new model automatically.")
 

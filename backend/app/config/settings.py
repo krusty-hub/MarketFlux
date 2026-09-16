@@ -6,8 +6,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load .env from the project root (two levels up from this file)
-_env_path = Path(__file__).parents[4] / ".env"
+# Load .env from the project root (three levels up from this file)
+_env_path = Path(__file__).parents[3] / ".env"
 load_dotenv(_env_path)
 
 # ── Supabase ──────────────────────────────────────────────────────────────────

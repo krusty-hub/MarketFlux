@@ -84,8 +84,8 @@ def add_features(df: pd.DataFrame, live_price: Optional[float] = None) -> pd.Dat
 
     # ── Section 4: SMC – Break of Structure (BOS) ────────────────────────────
     window = 5
-    df["swing_high"] = df["high"].rolling(window=window, center=True).max()
-    df["swing_low"]  = df["low"].rolling(window=window, center=True).min()
+    df["swing_high"] = df["high"].rolling(window=window).max()
+    df["swing_low"]  = df["low"].rolling(window=window).min()
     df["bullish_bos"] = (df["close"] > df["swing_high"].shift(1)).astype(int)
     df["bearish_bos"] = (df["close"] < df["swing_low"].shift(1)).astype(int)
 
@@ -195,7 +195,7 @@ def get_feature_cols(df: pd.DataFrame) -> List[str]:
         "tr", "swing_high", "swing_low",
         "rsi_high", "rsi_low", "price_high", "price_low",
         "recent_high", "recent_low", "vol_ma_20",
-        "live_price", "session",          # string/non-numeric
+        "live_price", "session", "target", # Exclude target and string/non-numeric
     }
     # Also exclude raw returns used only for target generation
     return [

@@ -46,10 +46,16 @@ class InstitutionalForecastModel:
         self.scaler = StandardScaler()
         X_scaled = self.scaler.fit_transform(X)
 
+        # Calculate dynamic class weights for severe imbalance
+        num_neg = len(y[y == 0])
+        num_pos = len(y[y == 1])
+        scale_pos_weight = num_neg / num_pos if num_pos > 0 else 1.0
+
         # Build ensemble
         self.models["rf"] = RandomForestClassifier(
             n_estimators=100, max_depth=12,
             min_samples_split=10, min_samples_leaf=5,
+            class_weight="balanced",
             random_state=42, n_jobs=-1,
         )
         try:
@@ -58,6 +64,7 @@ class InstitutionalForecastModel:
                 n_estimators=100, max_depth=8,
                 learning_rate=0.05, subsample=0.8,
                 colsample_bytree=0.8, use_label_encoder=False,
+                scale_pos_weight=scale_pos_weight,
                 eval_metric="logloss", random_state=42, n_jobs=-1,
             )
         except ImportError:
@@ -68,6 +75,7 @@ class InstitutionalForecastModel:
             self.models["lgb"] = lgb.LGBMClassifier(
                 n_estimators=100, max_depth=8,
                 learning_rate=0.05, num_leaves=31,
+                scale_pos_weight=scale_pos_weight,
                 random_state=42, n_jobs=-1, verbose=-1,
             )
         except ImportError:
@@ -93,16 +101,20 @@ class InstitutionalForecastModel:
 
     def predict_proba(self, X_raw: np.ndarray) -> float:
         """Return ensemble probability of a WIN (class 1)."""
+        import warnings
         if not self.trained:
             raise RuntimeError("Model not trained")
-        X_scaled = self.scaler.transform(X_raw)
-        prob = 0.0
-        for name, mdl in self.models.items():
-            w = self.weights.get(name, 1.0 / len(self.models))
-            if hasattr(mdl, "predict_proba"):
-                prob += w * mdl.predict_proba(X_scaled)[0][1]
-            else:
-                prob += w * float(mdl.predict(X_scaled)[0])
+        
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            X_scaled = self.scaler.transform(X_raw)
+            prob = 0.0
+            for name, mdl in self.models.items():
+                w = self.weights.get(name, 1.0 / len(self.models))
+                if hasattr(mdl, "predict_proba"):
+                    prob += w * mdl.predict_proba(X_scaled)[0][1]
+                else:
+                    prob += w * float(mdl.predict(X_scaled)[0])
         return float(np.clip(prob, 0.0, 1.0))
 
     def save(self, path: Path) -> None:
