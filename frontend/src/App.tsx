@@ -1,128 +1,129 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="min-h-screen bg-void-black text-sage-60 selection:bg-lime-pulse/20">
-      
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-carbon-veil/80 backdrop-blur-[10px] border-b border-phosphor-blue-black">
-        <div className="max-w-[1280px] mx-auto h-[64px] px-[24px] flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-sm bg-lime-pulse shadow-[0_0_15px_rgba(127,238,100,0.4)]"></div>
-            <span className="font-goga font-medium text-[20px] text-phosphor-white tracking-[-0.017em]">MarketFlux</span>
-          </div>
-          <div className="flex items-center gap-[32px] text-sm font-medium">
-            <a href="#" className="text-phosphor-white hover:text-lime-pulse transition-colors">Dashboard</a>
-            <a href="#" className="text-phosphor-white hover:text-lime-pulse transition-colors">Signals</a>
-            <a href="#" className="text-phosphor-white hover:text-lime-pulse transition-colors">Performance</a>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-circuit-border">
-              <div className="w-2 h-2 rounded-full bg-lime-pulse animate-pulse"></div>
-              <span className="text-caption font-medium uppercase tracking-[0.6px] text-moss-70">Live</span>
-            </div>
-          </div>
-        </div>
-      </nav>
+import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from './auth/AuthContext';
+import { ProtectedRoute } from './auth/ProtectedRoute';
+import { ToastProvider } from './components/Toast';
+import { Sidebar } from './components/Sidebar';
+import { LiveConfirmationModal } from './components/LiveConfirmationModal';
 
-      {/* Main Content */}
-      <main className="pt-[100px] pb-[80px] max-w-[1280px] mx-auto px-[24px]">
-        
-        {/* Hero Section */}
-        <div className="py-[80px] text-center flex flex-col items-center">
-          <h1 className="font-goga text-display font-medium leading-none tracking-display mb-6">
-            <span className="text-lime-pulse">Institutional grade</span>
-            <br />
-            <span className="text-phosphor-white">AI forecasting</span>
-          </h1>
-          <p className="max-w-[640px] text-subheading text-moss-80 mb-10">
-            MarketFlux connects to live data feeds, identifies SMC liquidity conditions, and executes probabilistic forecasts across Crypto and Forex.
-          </p>
-          
-          <div className="flex items-center gap-3">
-            <button className="bg-lime-pulse text-ground-iron px-6 py-3.5 rounded-pills font-medium hover:brightness-110 transition-all">
-              Run Forecast
-            </button>
-            <button className="bg-transparent border border-phosphor-white text-phosphor-white px-8 py-3.5 rounded-buttons font-medium hover:bg-carbon-veil transition-all">
-              View History
-            </button>
-          </div>
-        </div>
+// Public Pages
+import { LandingPage } from './pages/LandingPage';
+import { LoginPage } from './pages/auth/LoginPage';
+import { RegisterPage } from './pages/auth/RegisterPage';
+import { ForgotPasswordPage } from './pages/auth/ForgotPasswordPage';
 
-        <hr className="border-t border-phosphor-blue-black my-[40px]" />
+// Protected App Pages
+import { DashboardPage } from './pages/DashboardPage';
+import { TrainingPage } from './pages/TrainingPage';
+import { BacktestPage } from './pages/BacktestPage';
+import { BotPage } from './pages/BotPage';
+import { ModelsPage } from './pages/ModelsPage';
+import { MarketsPage } from './pages/MarketsPage';
+import { TradesPage } from './pages/TradesPage';
+import { AnalyticsPage } from './pages/AnalyticsPage';
+import { SettingsPage } from './pages/SettingsPage';
+import { botApi } from './services/api';
 
-        {/* Dashboard Grid */}
-        <div>
-          <span className="block text-caption font-medium uppercase tracking-[0.6px] text-moss-70 mb-3">
-            Market Intelligence
-          </span>
-          <h2 className="font-goga text-heading-lg font-medium text-phosphor-white tracking-heading-lg mb-8">
-            Latest Signals
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-[20px]">
-            {/* Example Card 1 */}
-            <div className="bg-carbon-veil rounded-cards p-[32px] border border-circuit-border">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-goga text-heading-sm font-medium text-phosphor-white">BTC / USDT</h3>
-                <span className="bg-lime-pulse/10 text-lime-pulse px-3 py-1 rounded-pills text-caption font-medium">5m</span>
-              </div>
-              <div className="mb-6">
-                <div className="text-display font-medium text-lime-pulse font-goga leading-none">BUY</div>
-                <div className="text-body-sm text-sage-60 mt-2">72% Model Confidence</div>
-              </div>
-              
-              <div className="space-y-3 pt-4 border-t border-phosphor-blue-black">
-                <div className="flex justify-between text-sm">
-                  <span className="text-sage-40">Entry</span>
-                  <span className="text-phosphor-white font-mono">103,500.0</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-sage-40">Target (2R)</span>
-                  <span className="text-lime-pulse font-mono">106,000.0</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-sage-40">Stop Loss</span>
-                  <span className="text-[#ff6b6b] font-mono">101,500.0</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Example Code Window Card */}
-            <div className="bg-ground-iron rounded-xl p-[24px] border border-circuit-border md:col-span-2">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#485346]"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-[#485346]"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-[#485346]"></div>
-                <span className="ml-auto text-caption font-medium text-moss-70">signal_context.json</span>
-              </div>
-              <pre className="font-mono text-sm leading-[1.6] overflow-x-auto text-phosphor-white">
-<span className="text-sage-60">{`{`}</span>{`
-  `}
-<span className="text-sage-60">"pair"</span>{`: `}<span className="text-lime-pulse">"BTC/USDT"</span>{`,
-  `}
-<span className="text-sage-60">"regime"</span>{`: `}<span className="text-lime-pulse">"TRENDING"</span>{`,
-  `}
-<span className="text-sage-60">"smc_flags"</span>{`: {
-    `}
-<span className="text-sage-60">"liquidity_sweep"</span>{`: `}<span className="text-[#aed2a4]">true</span>{`,
-    `}
-<span className="text-sage-60">"fvg"</span>{`: `}<span className="text-[#aed2a4]">true</span>{`,
-    `}
-<span className="text-sage-60">"choch"</span>{`: `}<span className="text-[#aed2a4]">false</span>{`
-  },
-  `}
-<span className="text-sage-60">"session"</span>{`: `}<span className="text-lime-pulse">"LONDON"</span>{`
-`}
-<span className="text-sage-60">{`}`}</span>
-              </pre>
-            </div>
-          </div>
-        </div>
-
-      </main>
-    </div>
-  )
+/**
+ * Shell layout for authenticated platform routes (Dashboard, Markets, Bot, etc.)
+ * Includes institutional Sidebar, Live confirmation modal, and content viewport.
+ */
+interface AppLayoutProps {
+  botMode: 'paper' | 'live';
+  setBotMode: (mode: 'paper' | 'live') => void;
+  showLiveModal: boolean;
+  setShowLiveModal: (show: boolean) => void;
 }
 
-export default App
+const AppLayout: React.FC<AppLayoutProps> = ({
+  botMode,
+  setBotMode,
+  showLiveModal,
+  setShowLiveModal,
+}) => {
+  const handleConfirmLive = async (code: string) => {
+    try {
+      await botApi.setMode('live', code);
+      setBotMode('live');
+    } catch {
+      // Error handled in BotPage toast
+    }
+  };
+
+  return (
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
+      {/* Platform Sidebar */}
+      <Sidebar
+        botMode={botMode}
+        onOpenLiveModal={() => setShowLiveModal(true)}
+      />
+
+      {/* Live execution safety modal */}
+      <LiveConfirmationModal
+        isOpen={showLiveModal}
+        onClose={() => setShowLiveModal(false)}
+        onConfirm={handleConfirmLive}
+      />
+
+      {/* Main trading workspace */}
+      <main className="main-with-sidebar page-enter" style={{ flex: 1, minWidth: 0 }}>
+        <Outlet />
+      </main>
+    </div>
+  );
+};
+
+function App() {
+  const [botMode, setBotMode] = useState<'paper' | 'live'>('paper');
+  const [showLiveModal, setShowLiveModal] = useState(false);
+
+  return (
+    <BrowserRouter>
+      <ThemeProvider>
+        <AuthProvider>
+          <ToastProvider>
+            <Routes>
+              {/* ── Public Landing & Auth Routes ── */}
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
+              {/* ── Protected Trading Platform Routes ── */}
+              <Route
+                element={
+                  <ProtectedRoute>
+                    <AppLayout
+                      botMode={botMode}
+                      setBotMode={setBotMode}
+                      showLiveModal={showLiveModal}
+                      setShowLiveModal={setShowLiveModal}
+                    />
+                  </ProtectedRoute>
+                }
+              >
+                <Route path="/dashboard" element={<DashboardPage botMode={botMode} />} />
+                <Route path="/markets" element={<MarketsPage />} />
+                <Route path="/bot" element={<BotPage setBotMode={setBotMode} />} />
+                <Route path="/training" element={<TrainingPage />} />
+                <Route path="/backtest" element={<BacktestPage />} />
+                <Route path="/backtesting" element={<BacktestPage />} />
+                <Route path="/models" element={<ModelsPage />} />
+                <Route path="/trades" element={<TradesPage />} />
+                <Route path="/analytics" element={<AnalyticsPage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+              </Route>
+
+              {/* ── Fallback Route ── */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </ToastProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </BrowserRouter>
+  );
+}
+
+export default App;

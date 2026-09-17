@@ -1,0 +1,304 @@
+[
+  {
+    "id": "train_20260916_142234_001",
+    "symbol": "BTCUSDT",
+    "timeframe": "5m",
+    "model_type": "xgboost",
+    "epochs": 5,
+    "batch_size": 32,
+    "learning_rate": 0.05,
+    "limit": 300,
+    "status": "COMPLETED",
+    "created_at": "2026-09-16T14:22:34.555562+00:00",
+    "started_at": "2026-09-16T14:22:34.556466+00:00",
+    "completed_at": "2026-09-16T14:22:40.406203+00:00",
+    "current_epoch": 5,
+    "progress_pct": 100,
+    "train_loss": 0.2146,
+    "val_loss": 0.0845,
+    "train_acc": 89.8,
+    "val_acc": 100.0,
+    "best_val_loss": 0.0845,
+    "best_val_score": 100.0,
+    "elapsed_seconds": 5.8,
+    "elapsed_formatted": "00:00:05",
+    "eta_seconds": 0.0,
+    "eta_formatted": "00:00:00",
+    "model_path": "C:\\Users\\DELL\\Downloads\\marketflux\\MarketFlux\\models\\BTCUSDT_5m_v20260916_1422.joblib",
+    "model_version": "v20260916_1422",
+    "error": null,
+    "logs_count": 21,
+    "recent_logs": [
+      {
+        "timestamp": "14:22:34",
+        "level": "INFO",
+        "text": "Job train_20260916_142234_001 queued for execution on background worker thread."
+      },
+      {
+        "timestamp": "14:22:34",
+        "level": "INFO",
+        "text": "Starting Training Job: train_20260916_142234_001"
+      },
+      {
+        "timestamp": "14:22:34",
+        "level": "INFO",
+        "text": "Target: BTCUSDT | Timeframe: 5m | Candles: 300 | Architecture: xgboost"
+      },
+      {
+        "timestamp": "14:22:34",
+        "level": "INFO",
+        "text": "Step 1/5: Fetching real historical market data..."
+      },
+      {
+        "timestamp": "14:22:39",
+        "level": "SUCCESS",
+        "text": "Loaded 300 real candles from Binance/Alpaca"
+      },
+      {
+        "timestamp": "14:22:39",
+        "level": "INFO",
+        "text": "Step 2/5: Engineering SMC/ICT technical features (Liquidity Sweeps, FVG, Order Blocks, BOS)..."
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "SUCCESS",
+        "text": "Feature engineering complete: 281 samples \u00d7 48 features"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "INFO",
+        "text": "Raw dataset win-rate baseline: 7.1%"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "INFO",
+        "text": "Step 3/5: Partitioning chronological train / validation / test splits..."
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "INFO",
+        "text": "Split sizes: Train=196 (70%) | Val=42 (15%) | Test=43 (15%)"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "INFO",
+        "text": "Step 4/5: Initializing xgboost architecture and starting 5 iterative epochs..."
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "EPOCH",
+        "text": "Epoch 01/5 | Loss: 0.2987 | Val Loss: 0.1025 | Val Acc: 100.0% | ETA: 00:00:22"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "EPOCH",
+        "text": "Epoch 02/5 | Loss: 0.2730 | Val Loss: 0.0976 | Val Acc: 100.0% | ETA: 00:00:08"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "EPOCH",
+        "text": "Epoch 03/5 | Loss: 0.2508 | Val Loss: 0.0930 | Val Acc: 100.0% | ETA: 00:00:03"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "EPOCH",
+        "text": "Epoch 04/5 | Loss: 0.2313 | Val Loss: 0.0886 | Val Acc: 100.0% | ETA: 00:00:01"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "EPOCH",
+        "text": "Epoch 05/5 | Loss: 0.2146 | Val Loss: 0.0845 | Val Acc: 100.0% | ETA: 00:00:00"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "INFO",
+        "text": "Step 5/5: Running out-of-sample evaluation and backtest simulation on test set..."
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "SUCCESS",
+        "text": "Model saved to C:\\Users\\DELL\\Downloads\\marketflux\\MarketFlux\\models\\BTCUSDT_5m_v20260916_1422.joblib"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "SUCCESS",
+        "text": "Promoted to active model: C:\\Users\\DELL\\Downloads\\marketflux\\MarketFlux\\models\\BTCUSDT_5m.joblib"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "SUCCESS",
+        "text": "MODEL TRAINING COMPLETE! Test Accuracy: 100.0% | Simulated Return: +0.00% | Max DD: 0.0% | Sharpe: 0.00"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "SUCCESS",
+        "text": "Training session finalized and serialized successfully."
+      }
+    ],
+    "metrics_history": [
+      {
+        "epoch": 1,
+        "total_epochs": 5,
+        "progress_pct": 20,
+        "train_loss": 0.2987,
+        "val_loss": 0.1025,
+        "train_acc": 89.8,
+        "val_acc": 100.0,
+        "best_val_loss": 0.1025,
+        "best_val_score": 100.0,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 5.6,
+        "eta_seconds": 22.3
+      },
+      {
+        "epoch": 2,
+        "total_epochs": 5,
+        "progress_pct": 40,
+        "train_loss": 0.273,
+        "val_loss": 0.0976,
+        "train_acc": 89.8,
+        "val_acc": 100.0,
+        "best_val_loss": 0.0976,
+        "best_val_score": 100.0,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 5.6,
+        "eta_seconds": 8.5
+      },
+      {
+        "epoch": 3,
+        "total_epochs": 5,
+        "progress_pct": 60,
+        "train_loss": 0.2508,
+        "val_loss": 0.093,
+        "train_acc": 89.8,
+        "val_acc": 100.0,
+        "best_val_loss": 0.093,
+        "best_val_score": 100.0,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 5.7,
+        "eta_seconds": 3.8
+      },
+      {
+        "epoch": 4,
+        "total_epochs": 5,
+        "progress_pct": 80,
+        "train_loss": 0.2313,
+        "val_loss": 0.0886,
+        "train_acc": 89.8,
+        "val_acc": 100.0,
+        "best_val_loss": 0.0886,
+        "best_val_score": 100.0,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 5.7,
+        "eta_seconds": 1.4
+      },
+      {
+        "epoch": 5,
+        "total_epochs": 5,
+        "progress_pct": 100,
+        "train_loss": 0.2146,
+        "val_loss": 0.0845,
+        "train_acc": 89.8,
+        "val_acc": 100.0,
+        "best_val_loss": 0.0845,
+        "best_val_score": 100.0,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 5.8,
+        "eta_seconds": 0.0
+      }
+    ],
+    "summary": {
+      "job_id": "train_20260916_142234_001",
+      "symbol": "BTCUSDT",
+      "timeframe": "5m",
+      "model_type": "xgboost",
+      "version": "v20260916_1422",
+      "model_filename": "BTCUSDT_5m_v20260916_1422.joblib",
+      "model_path": "C:\\Users\\DELL\\Downloads\\marketflux\\MarketFlux\\models\\BTCUSDT_5m_v20260916_1422.joblib",
+      "training_duration": "00:00:05",
+      "duration_seconds": 5.8,
+      "best_val_loss": 0.0845,
+      "test_accuracy": 100.0,
+      "test_precision": 0.0,
+      "backtest_return": 0.0,
+      "max_drawdown": 0.0,
+      "sharpe_ratio": 0.0,
+      "total_trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "win_rate": 0.0,
+      "metrics_history": [
+        {
+          "epoch": 1,
+          "total_epochs": 5,
+          "progress_pct": 20,
+          "train_loss": 0.2987,
+          "val_loss": 0.1025,
+          "train_acc": 89.8,
+          "val_acc": 100.0,
+          "best_val_loss": 0.1025,
+          "best_val_score": 100.0,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 5.6,
+          "eta_seconds": 22.3
+        },
+        {
+          "epoch": 2,
+          "total_epochs": 5,
+          "progress_pct": 40,
+          "train_loss": 0.273,
+          "val_loss": 0.0976,
+          "train_acc": 89.8,
+          "val_acc": 100.0,
+          "best_val_loss": 0.0976,
+          "best_val_score": 100.0,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 5.6,
+          "eta_seconds": 8.5
+        },
+        {
+          "epoch": 3,
+          "total_epochs": 5,
+          "progress_pct": 60,
+          "train_loss": 0.2508,
+          "val_loss": 0.093,
+          "train_acc": 89.8,
+          "val_acc": 100.0,
+          "best_val_loss": 0.093,
+          "best_val_score": 100.0,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 5.7,
+          "eta_seconds": 3.8
+        },
+        {
+          "epoch": 4,
+          "total_epochs": 5,
+          "progress_pct": 80,
+          "train_loss": 0.2313,
+          "val_loss": 0.0886,
+          "train_acc": 89.8,
+          "val_acc": 100.0,
+          "best_val_loss": 0.0886,
+          "best_val_score": 100.0,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 5.7,
+          "eta_seconds": 1.4
+        },
+        {
+          "epoch": 5,
+          "total_epochs": 5,
+          "progress_pct": 100,
+          "train_loss": 0.2146,
+          "val_loss": 0.0845,
+          "train_acc": 89.8,
+          "val_acc": 100.0,
+          "best_val_loss": 0.0845,
+          "best_val_score": 100.0,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 5.8,
+          "eta_seconds": 0.0
+        }
+      ]
+    }
+  }
+]
