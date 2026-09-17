@@ -39,6 +39,53 @@ def _get_alpaca_symbol(symbol: str) -> str:
     return symbol
 
 
+def fetch_binance_vision_ohlcv(symbol: str, timeframe: str, limit: int) -> Optional[pd.DataFrame]:
+    """Fetch from data-api.binance.vision (no API keys needed, handles pagination)."""
+    url = 'https://data-api.binance.vision/api/v3/klines'
+    all_klines = []
+    end_time = None
+    remaining = limit
+    
+    while remaining > 0:
+        batch_size = min(remaining, 1000)
+        params = {'symbol': symbol, 'interval': timeframe, 'limit': batch_size}
+        if end_time:
+            params['endTime'] = end_time
+            
+        try:
+            resp = requests.get(url, params=params, timeout=10)
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as e:
+            log.warning(f"Binance Vision fetch failed ({symbol} {timeframe}): {e}")
+            break
+            
+        if not data:
+            break
+            
+        all_klines = data + all_klines
+        end_time = data[0][0] - 1
+        remaining -= len(data)
+        
+        if len(data) < batch_size:
+            break
+            
+    if not all_klines:
+        return None
+        
+    df = pd.DataFrame(all_klines, columns=[
+        'timestamp', 'open', 'high', 'low', 'close', 'volume',
+        'close_time', 'qav', 'num_trades', 'taker_base_vol', 'taker_quote_vol', 'ignore'
+    ])
+    df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
+    df = df.set_index('timestamp')[['open', 'high', 'low', 'close', 'volume']]
+    df = df.astype(float)
+    df.index = df.index.tz_localize('UTC')
+    log.info(f"✓ Binance Vision OHLCV {symbol} {timeframe}: {len(df)} candles")
+    return df
+
+
+
 def fetch_alpaca_ohlcv(
     symbol: str,
     timeframe: str,
@@ -48,7 +95,7 @@ def fetch_alpaca_ohlcv(
     alpaca_symbol = _get_alpaca_symbol(symbol)
     
     tf_map = {
-        "1m": "1Min", "5m": "5Min", "15m": "15Min",
+        "1m": "1Min", "5m": "5Min", "15m": "15Min", "30m": "MIN30",
         "1h": "1Hour", "4h": "4Hour", "1d": "1Day"
     }
     alpaca_tf = tf_map.get(timeframe)
@@ -119,10 +166,22 @@ def fetch_ohlcv(
     
     if timeframe in ["1m"]:
         period = "7d"
-    elif timeframe in ["5m", "15m"]:
+    elif timeframe in ["5m", "15m", "30m"]:
         period = "60d"
+    elif timeframe in ["1h"]:
+        period = "730d"
+    elif timeframe in ["1d", "1wk", "1mo"]:
+        period = "max"
     else:
         period = "1y"
+
+    try:
+        log.info(f"Fetching {symbol} data from Binance Vision ...")
+        df_binance = fetch_binance_vision_ohlcv(symbol, timeframe, limit)
+        if df_binance is not None and not df_binance.empty:
+            return df_binance
+    except Exception as e:
+        log.warning(f"Binance Vision error: {e}")
 
     try:
         log.info(f"Fetching {yf_symbol} data from Yahoo Finance ...")

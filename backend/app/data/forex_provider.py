@@ -33,6 +33,7 @@ _DUKASCOPY_TF_MAP = {
     "1m":  "MIN1",
     "5m":  "MIN5",
     "15m": "MIN15",
+    "30m": "MIN30",
     "1h":  "HOUR1",
     "4h":  "HOUR4",
     "1d":  "DAY1",
@@ -118,7 +119,7 @@ def _fetch_alpha_vantage_fallback(
         log.warning("No ALPHA_VANTAGE_API_KEY set, cannot use fallback.")
         return None
 
-    _AV_TF = {"1m": "1min", "5m": "5min", "15m": "15min", "1h": "60min"}
+    _AV_TF = {"1m": "1min", "5m": "5min", "15m": "15min",  "30m": "MIN30", "1h": "60min"}
     _AV_DAILY = {"1d": "FX_DAILY"}
 
     av_from = symbol[:3]

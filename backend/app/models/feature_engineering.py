@@ -195,7 +195,7 @@ def get_feature_cols(df: pd.DataFrame) -> List[str]:
         "tr", "swing_high", "swing_low",
         "rsi_high", "rsi_low", "price_high", "price_low",
         "recent_high", "recent_low", "vol_ma_20",
-        "live_price", "session", "target", # Exclude target and string/non-numeric
+        "live_price", "price_context", "session", "target", # Exclude target and string/non-numeric
     }
     # Also exclude raw returns used only for target generation
     return [

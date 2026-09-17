@@ -71,17 +71,17 @@ FOREX_PAIRS: dict = {
 }
 
 # ── Valid timeframes per market ───────────────────────────────────────────────
-CRYPTO_TIMEFRAMES: list = ["1m", "5m", "15m", "1h", "4h", "1d"]
-FOREX_TIMEFRAMES: list = ["1m", "5m", "15m", "1h", "4h", "1d"]
+CRYPTO_TIMEFRAMES: list = ["1m", "5m", "15m", "30m", "1h", "4h", "1d", "1wk", "1mo"]
+FOREX_TIMEFRAMES: list = ["1m", "5m", "15m", "30m", "1h", "4h", "1d", "1wk", "1mo"]
 
 # Binance interval aliases
 BINANCE_INTERVAL_MAP: dict = {
-    "1m": "1m", "5m": "5m", "15m": "15m",
-    "1h": "1h", "4h": "4h", "1d": "1d",
+    "1m": "1m", "5m": "5m", "15m": "15m", "30m": "30m",
+    "1h": "1h", "4h": "4h", "1d": "1d", "1wk": "1w", "1mo": "1M",
 }
 
 # Kraken interval aliases (in minutes)
 KRAKEN_INTERVAL_MAP: dict = {
-    "1m": "1", "5m": "5", "15m": "15",
-    "1h": "60", "4h": "240", "1d": "1440",
+    "1m": "1", "5m": "5", "15m": "15", "30m": "30",
+    "1h": "60", "4h": "240", "1d": "1440", "1wk": "10080", "1mo": "43200",
 }

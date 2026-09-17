@@ -3,7 +3,7 @@ MarketFlux – Local Model Training Script
 Run this to generate the training dataset and train/save the ML model.
 
 Usage:
-    python -m backend.app.models.train --symbol BTCUSDT --interval 5m --limit 1000
+    python -m backend.app.models.train --symbol BTCUSDT --interval 15m --limit 1000
 
 Steps:
   1. Download Binance historical klines
@@ -69,7 +69,6 @@ def run_training(
     risk_pct: float = 0.005,
     lookahead: int = 20,
     test_size: float = 0.2,
-    log_to_supabase: bool = False,
 ) -> InstitutionalForecastModel:
     """
     Full training pipeline. Returns the trained model.
@@ -162,17 +161,16 @@ def run_training(
         new_model.save(model_path)
         log.info(f"  Model saved → {model_path} (version={new_model.version})")
 
-        # ── Step 8: Log to Supabase (optional) ───────────────────────────────
-        if log_to_supabase:
-            _log_model_version_to_supabase(
-                symbol=symbol,
-                timeframe=timeframe,
-                model=new_model,
-                dataset_size=len(df),
-                win_rate=new_win_rate,
-                precision=new_precision,
-                model_path=str(model_path),
-            )
+        # ── Step 8: Log to Supabase ──────────────────────────────────────────────
+        _log_model_version_to_supabase(
+            symbol=symbol,
+            timeframe=timeframe,
+            model=new_model,
+            dataset_size=len(df),
+            win_rate=new_win_rate,
+            precision=new_precision,
+            model_path=str(model_path),
+        )
     else:
         log.info("  Active model retained. New model discarded.")
 
@@ -195,8 +193,7 @@ def _log_model_version_to_supabase(
         from backend.app.config.settings import SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 
         if not SUPABASE_URL or not SUPABASE_SERVICE_ROLE_KEY:
-            log.warning("Supabase credentials not set. Skipping model version logging.")
-            return
+            raise ValueError("Supabase credentials not set.")
 
         client = create_client(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
@@ -207,6 +204,7 @@ def _log_model_version_to_supabase(
 
         # Insert new active version
         client.table("model_versions").insert({
+            "version_id":    model.version,
             "version":       model.version,
             "symbol":        symbol,
             "timeframe":     timeframe,
@@ -223,7 +221,8 @@ def _log_model_version_to_supabase(
         log.info(f"  Model version {model.version} logged to Supabase.")
 
     except Exception as e:
-        log.warning(f"Failed to log model version to Supabase: {e}")
+        log.error(f"Failed to log model version to Supabase: {e}")
+        raise RuntimeError(f"Compulsory Supabase logging failed: {e}") from e
 
 
 if __name__ == "__main__":
@@ -233,7 +232,6 @@ if __name__ == "__main__":
     parser.add_argument("--limit",      type=int, default=1000, help="Number of candles")
     parser.add_argument("--risk-pct",   type=float, default=0.005, help="Risk %% for 1R target")
     parser.add_argument("--lookahead",  type=int, default=20, help="Candles to check for target")
-    parser.add_argument("--supabase",   action="store_true", help="Log model version to Supabase")
     args = parser.parse_args()
 
     try:
@@ -243,7 +241,6 @@ if __name__ == "__main__":
             limit=args.limit,
             risk_pct=args.risk_pct,
             lookahead=args.lookahead,
-            log_to_supabase=args.supabase,
         )
     except Exception as exc:
         log.error(f"Training failed: {exc}", exc_info=True)

@@ -15,6 +15,7 @@ import joblib
 
 from ..config.settings import MODEL_DIR
 from ..models.feature_engineering import add_features, get_feature_cols
+from ..models.rules_strategy import TradingRulesStrategy
 
 log = logging.getLogger("marketflux.engine")
 
@@ -252,6 +253,8 @@ def run_forecast(
     live_price: float,
     price_source: str,
     exchange: str = "binance",
+    news_sentiment: float = 0.0,
+    is_high_impact_news_window: bool = False,
 ) -> Dict:
     """
     Full inference pipeline:
@@ -266,12 +269,20 @@ def run_forecast(
     df = add_features(df_raw, live_price=live_price)
     feature_cols = get_feature_cols(df)
 
+    # Initialize rule-based strategy and calculate technicals
+    strategy = TradingRulesStrategy()
+    df = strategy.calculate_technical_signals(df)
+
     if len(df) < 150:
         raise RuntimeError(f"Insufficient data: {len(df)} rows (need ≥150)")
 
     latest_row = df.iloc[-1]
     rvol = float(df["rvol_14"].iloc[-1])
     atr  = float(df["atr_14"].iloc[-1])
+    # Ensure we use rule strategy ATR if available and fallback if needed
+    if pd.notna(latest_row.get("atr")):
+        atr = float(latest_row["atr"])
+        
     regime = int(df["regime"].iloc[-1])
 
     # Load trained model (if exists)
@@ -296,7 +307,23 @@ def run_forecast(
         "STRONG_SHORT": "SELL", "SHORT": "SELL",
         "NEUTRAL": "HOLD",
     }
-    signal = signal_map.get(direction, "NO_SIGNAL")
+    ml_confluence_signal = signal_map.get(direction, "NO_SIGNAL")
+
+    # Rule-based evaluation
+    rule_signal = strategy.evaluate_rules(latest_row, news_sentiment, is_high_impact_news_window)
+
+    # Final Decision logic (combine ML and Rule-based)
+    # E.g., if ML and Rules both say BUY, then BUY. If they conflict, HOLD.
+    if ml_confluence_signal == rule_signal:
+        final_signal = ml_confluence_signal
+    elif ml_confluence_signal == "BUY" and rule_signal == "BUY":
+        final_signal = "BUY"
+    elif ml_confluence_signal == "SELL" and rule_signal == "SELL":
+        final_signal = "SELL"
+    elif rule_signal != "HOLD" and ml_confluence_signal == "NO_SIGNAL":
+        final_signal = rule_signal
+    else:
+        final_signal = "HOLD"
 
     # Use model probability if available, otherwise conf_score
     if win_prob is not None:
@@ -304,7 +331,7 @@ def run_forecast(
         bull_prob_pct    = round(win_prob * 100, 1)
     else:
         confidence_score = conf_score / 100.0
-        bull_prob_pct    = float(conf_score) if signal == "BUY" else float(100 - conf_score)
+        bull_prob_pct    = float(conf_score) if ml_confluence_signal == "BUY" else float(100 - conf_score)
 
     pred_ret   = (bull_prob_pct / 100 - 0.5) * rvol * 2 if rvol > 0 else 0.0
     pred_price = round(live_price * (1 + pred_ret), 5)
@@ -331,7 +358,9 @@ def run_forecast(
         "market_type":          market_type,
         "timeframe":            timeframe,
         "data_source":          price_source,
-        "signal":               signal,
+        "ml_signal":            ml_confluence_signal,
+        "rule_signal":          rule_signal,
+        "final_signal":         final_signal,
         "trend_direction":      direction,
         "confidence":           conf_label,
         "confidence_score":     round(confidence_score, 3),

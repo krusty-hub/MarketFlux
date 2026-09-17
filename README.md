@@ -48,7 +48,7 @@ The application uses an ensemble machine learning model predicting a 2R take-pro
 
 ```bash
 # Example: Train model for BTC/USDT on 5m timeframe
-python -m backend.app.models.train --symbol BTCUSDT --interval 5m --limit 1000 --supabase
+python -m backend.app.models.train --symbol BTCUSDT --interval 15m --limit 15000 --supabase
 ```
 
 The model will be saved in the `models/` directory and logged to Supabase if `--supabase` is provided.
