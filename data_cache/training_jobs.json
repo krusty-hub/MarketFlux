@@ -1,0 +1,2878 @@
+[
+  {
+    "id": "train_20260916_142234_001",
+    "symbol": "BTCUSDT",
+    "timeframe": "5m",
+    "model_type": "xgboost",
+    "epochs": 5,
+    "batch_size": 32,
+    "learning_rate": 0.05,
+    "limit": 300,
+    "status": "COMPLETED",
+    "created_at": "2026-09-16T14:22:34.555562+00:00",
+    "started_at": "2026-09-16T14:22:34.556466+00:00",
+    "completed_at": "2026-09-16T14:22:40.406203+00:00",
+    "current_epoch": 5,
+    "progress_pct": 100,
+    "train_loss": 0.2146,
+    "val_loss": 0.0845,
+    "train_acc": 89.8,
+    "val_acc": 100.0,
+    "best_val_loss": 0.0845,
+    "best_val_score": 100.0,
+    "elapsed_seconds": 0.0,
+    "elapsed_formatted": "00:00:00",
+    "eta_seconds": 0.0,
+    "eta_formatted": "00:00:00",
+    "model_path": "C:\\Users\\DELL\\Downloads\\marketflux\\MarketFlux\\models\\BTCUSDT_5m_v20260916_1422.joblib",
+    "model_version": "v20260916_1422",
+    "error": null,
+    "logs_count": 21,
+    "recent_logs": [
+      {
+        "timestamp": "14:22:34",
+        "level": "INFO",
+        "text": "Job train_20260916_142234_001 queued for execution on background worker thread."
+      },
+      {
+        "timestamp": "14:22:34",
+        "level": "INFO",
+        "text": "Starting Training Job: train_20260916_142234_001"
+      },
+      {
+        "timestamp": "14:22:34",
+        "level": "INFO",
+        "text": "Target: BTCUSDT | Timeframe: 5m | Candles: 300 | Architecture: xgboost"
+      },
+      {
+        "timestamp": "14:22:34",
+        "level": "INFO",
+        "text": "Step 1/5: Fetching real historical market data..."
+      },
+      {
+        "timestamp": "14:22:39",
+        "level": "SUCCESS",
+        "text": "Loaded 300 real candles from Binance/Alpaca"
+      },
+      {
+        "timestamp": "14:22:39",
+        "level": "INFO",
+        "text": "Step 2/5: Engineering SMC/ICT technical features (Liquidity Sweeps, FVG, Order Blocks, BOS)..."
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "SUCCESS",
+        "text": "Feature engineering complete: 281 samples \u00d7 48 features"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "INFO",
+        "text": "Raw dataset win-rate baseline: 7.1%"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "INFO",
+        "text": "Step 3/5: Partitioning chronological train / validation / test splits..."
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "INFO",
+        "text": "Split sizes: Train=196 (70%) | Val=42 (15%) | Test=43 (15%)"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "INFO",
+        "text": "Step 4/5: Initializing xgboost architecture and starting 5 iterative epochs..."
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "EPOCH",
+        "text": "Epoch 01/5 | Loss: 0.2987 | Val Loss: 0.1025 | Val Acc: 100.0% | ETA: 00:00:22"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "EPOCH",
+        "text": "Epoch 02/5 | Loss: 0.2730 | Val Loss: 0.0976 | Val Acc: 100.0% | ETA: 00:00:08"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "EPOCH",
+        "text": "Epoch 03/5 | Loss: 0.2508 | Val Loss: 0.0930 | Val Acc: 100.0% | ETA: 00:00:03"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "EPOCH",
+        "text": "Epoch 04/5 | Loss: 0.2313 | Val Loss: 0.0886 | Val Acc: 100.0% | ETA: 00:00:01"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "EPOCH",
+        "text": "Epoch 05/5 | Loss: 0.2146 | Val Loss: 0.0845 | Val Acc: 100.0% | ETA: 00:00:00"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "INFO",
+        "text": "Step 5/5: Running out-of-sample evaluation and backtest simulation on test set..."
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "SUCCESS",
+        "text": "Model saved to C:\\Users\\DELL\\Downloads\\marketflux\\MarketFlux\\models\\BTCUSDT_5m_v20260916_1422.joblib"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "SUCCESS",
+        "text": "Promoted to active model: C:\\Users\\DELL\\Downloads\\marketflux\\MarketFlux\\models\\BTCUSDT_5m.joblib"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "SUCCESS",
+        "text": "MODEL TRAINING COMPLETE! Test Accuracy: 100.0% | Simulated Return: +0.00% | Max DD: 0.0% | Sharpe: 0.00"
+      },
+      {
+        "timestamp": "14:22:40",
+        "level": "SUCCESS",
+        "text": "Training session finalized and serialized successfully."
+      }
+    ],
+    "metrics_history": [
+      {
+        "epoch": 1,
+        "total_epochs": 5,
+        "progress_pct": 20,
+        "train_loss": 0.2987,
+        "val_loss": 0.1025,
+        "train_acc": 89.8,
+        "val_acc": 100.0,
+        "best_val_loss": 0.1025,
+        "best_val_score": 100.0,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 5.6,
+        "eta_seconds": 22.3
+      },
+      {
+        "epoch": 2,
+        "total_epochs": 5,
+        "progress_pct": 40,
+        "train_loss": 0.273,
+        "val_loss": 0.0976,
+        "train_acc": 89.8,
+        "val_acc": 100.0,
+        "best_val_loss": 0.0976,
+        "best_val_score": 100.0,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 5.6,
+        "eta_seconds": 8.5
+      },
+      {
+        "epoch": 3,
+        "total_epochs": 5,
+        "progress_pct": 60,
+        "train_loss": 0.2508,
+        "val_loss": 0.093,
+        "train_acc": 89.8,
+        "val_acc": 100.0,
+        "best_val_loss": 0.093,
+        "best_val_score": 100.0,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 5.7,
+        "eta_seconds": 3.8
+      },
+      {
+        "epoch": 4,
+        "total_epochs": 5,
+        "progress_pct": 80,
+        "train_loss": 0.2313,
+        "val_loss": 0.0886,
+        "train_acc": 89.8,
+        "val_acc": 100.0,
+        "best_val_loss": 0.0886,
+        "best_val_score": 100.0,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 5.7,
+        "eta_seconds": 1.4
+      },
+      {
+        "epoch": 5,
+        "total_epochs": 5,
+        "progress_pct": 100,
+        "train_loss": 0.2146,
+        "val_loss": 0.0845,
+        "train_acc": 89.8,
+        "val_acc": 100.0,
+        "best_val_loss": 0.0845,
+        "best_val_score": 100.0,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 5.8,
+        "eta_seconds": 0.0
+      }
+    ],
+    "summary": {
+      "job_id": "train_20260916_142234_001",
+      "symbol": "BTCUSDT",
+      "timeframe": "5m",
+      "model_type": "xgboost",
+      "version": "v20260916_1422",
+      "model_filename": "BTCUSDT_5m_v20260916_1422.joblib",
+      "model_path": "C:\\Users\\DELL\\Downloads\\marketflux\\MarketFlux\\models\\BTCUSDT_5m_v20260916_1422.joblib",
+      "training_duration": "00:00:05",
+      "duration_seconds": 5.8,
+      "best_val_loss": 0.0845,
+      "test_accuracy": 100.0,
+      "test_precision": 0.0,
+      "backtest_return": 0.0,
+      "max_drawdown": 0.0,
+      "sharpe_ratio": 0.0,
+      "total_trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "win_rate": 0.0,
+      "metrics_history": [
+        {
+          "epoch": 1,
+          "total_epochs": 5,
+          "progress_pct": 20,
+          "train_loss": 0.2987,
+          "val_loss": 0.1025,
+          "train_acc": 89.8,
+          "val_acc": 100.0,
+          "best_val_loss": 0.1025,
+          "best_val_score": 100.0,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 5.6,
+          "eta_seconds": 22.3
+        },
+        {
+          "epoch": 2,
+          "total_epochs": 5,
+          "progress_pct": 40,
+          "train_loss": 0.273,
+          "val_loss": 0.0976,
+          "train_acc": 89.8,
+          "val_acc": 100.0,
+          "best_val_loss": 0.0976,
+          "best_val_score": 100.0,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 5.6,
+          "eta_seconds": 8.5
+        },
+        {
+          "epoch": 3,
+          "total_epochs": 5,
+          "progress_pct": 60,
+          "train_loss": 0.2508,
+          "val_loss": 0.093,
+          "train_acc": 89.8,
+          "val_acc": 100.0,
+          "best_val_loss": 0.093,
+          "best_val_score": 100.0,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 5.7,
+          "eta_seconds": 3.8
+        },
+        {
+          "epoch": 4,
+          "total_epochs": 5,
+          "progress_pct": 80,
+          "train_loss": 0.2313,
+          "val_loss": 0.0886,
+          "train_acc": 89.8,
+          "val_acc": 100.0,
+          "best_val_loss": 0.0886,
+          "best_val_score": 100.0,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 5.7,
+          "eta_seconds": 1.4
+        },
+        {
+          "epoch": 5,
+          "total_epochs": 5,
+          "progress_pct": 100,
+          "train_loss": 0.2146,
+          "val_loss": 0.0845,
+          "train_acc": 89.8,
+          "val_acc": 100.0,
+          "best_val_loss": 0.0845,
+          "best_val_score": 100.0,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 5.8,
+          "eta_seconds": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "id": "train_20260918_095427_002",
+    "symbol": "BTCUSDT",
+    "timeframe": "15m",
+    "model_type": "ensemble",
+    "epochs": 35,
+    "batch_size": 32,
+    "learning_rate": 0.05,
+    "limit": 2500,
+    "status": "COMPLETED",
+    "created_at": "2026-09-18T09:54:27.621279+00:00",
+    "started_at": "2026-09-18T09:54:27.647189+00:00",
+    "completed_at": "2026-09-18T09:55:00.230276+00:00",
+    "current_epoch": 35,
+    "progress_pct": 100,
+    "train_loss": 0.1526,
+    "val_loss": 0.3872,
+    "train_acc": 94.35,
+    "val_acc": 82.26,
+    "best_val_loss": 0.3399,
+    "best_val_score": 89.52,
+    "elapsed_seconds": 0.0,
+    "elapsed_formatted": "00:00:00",
+    "eta_seconds": 0.0,
+    "eta_formatted": "00:00:00",
+    "model_path": "C:\\Users\\adisa\\Documents\\SIWES - L.E.G.I.T HUB\\MarketFlux-branch (2)\\models\\BTCUSDT_15m_v20260918_0955.joblib",
+    "model_version": "v20260918_0955",
+    "error": null,
+    "logs_count": 50,
+    "recent_logs": [
+      {
+        "timestamp": "09:54:27",
+        "level": "INFO",
+        "text": "Starting Training Job: train_20260918_095427_002"
+      },
+      {
+        "timestamp": "09:54:27",
+        "level": "INFO",
+        "text": "Target: BTCUSDT | Timeframe: 15m | Candles: 2500 | Architecture: ensemble"
+      },
+      {
+        "timestamp": "09:54:27",
+        "level": "INFO",
+        "text": "Step 1/5: Fetching real historical market data..."
+      },
+      {
+        "timestamp": "09:54:36",
+        "level": "SUCCESS",
+        "text": "Loaded 2,500 real candles from Binance/Alpaca"
+      },
+      {
+        "timestamp": "09:54:36",
+        "level": "INFO",
+        "text": "Step 2/5: Engineering SMC/ICT technical features (Liquidity Sweeps, FVG, Order Blocks, BOS)..."
+      },
+      {
+        "timestamp": "09:54:38",
+        "level": "SUCCESS",
+        "text": "Feature engineering complete: 2,481 samples \u00d7 47 features"
+      },
+      {
+        "timestamp": "09:54:38",
+        "level": "INFO",
+        "text": "Raw dataset win-rate baseline: 13.7%"
+      },
+      {
+        "timestamp": "09:54:38",
+        "level": "INFO",
+        "text": "Step 3/5: Partitioning chronological train / validation / test splits..."
+      },
+      {
+        "timestamp": "09:54:38",
+        "level": "INFO",
+        "text": "Split sizes: Train=1,736 (70%) | Val=372 (15%) | Test=373 (15%)"
+      },
+      {
+        "timestamp": "09:54:38",
+        "level": "INFO",
+        "text": "Step 4/5: Initializing ensemble architecture and starting 35 iterative epochs..."
+      },
+      {
+        "timestamp": "09:54:39",
+        "level": "EPOCH",
+        "text": "Epoch 01/35 | Loss: 0.2535 | Val Loss: 0.4688 | Val Acc: 73.7% | ETA: 00:06:36"
+      },
+      {
+        "timestamp": "09:54:39",
+        "level": "EPOCH",
+        "text": "Epoch 02/35 | Loss: 0.2130 | Val Loss: 0.3870 | Val Acc: 86.8% | ETA: 00:03:14"
+      },
+      {
+        "timestamp": "09:54:39",
+        "level": "EPOCH",
+        "text": "Epoch 03/35 | Loss: 0.2103 | Val Loss: 0.3638 | Val Acc: 88.2% | ETA: 00:02:07"
+      },
+      {
+        "timestamp": "09:54:39",
+        "level": "EPOCH",
+        "text": "Epoch 04/35 | Loss: 0.2086 | Val Loss: 0.3492 | Val Acc: 89.0% | ETA: 00:01:34"
+      },
+      {
+        "timestamp": "09:54:40",
+        "level": "EPOCH",
+        "text": "Epoch 05/35 | Loss: 0.2057 | Val Loss: 0.3443 | Val Acc: 89.5% | ETA: 00:01:14"
+      },
+      {
+        "timestamp": "09:54:40",
+        "level": "EPOCH",
+        "text": "Epoch 06/35 | Loss: 0.2033 | Val Loss: 0.3399 | Val Acc: 88.7% | ETA: 00:01:01"
+      },
+      {
+        "timestamp": "09:54:40",
+        "level": "EPOCH",
+        "text": "Epoch 07/35 | Loss: 0.2020 | Val Loss: 0.3481 | Val Acc: 88.4% | ETA: 00:00:51"
+      },
+      {
+        "timestamp": "09:54:40",
+        "level": "EPOCH",
+        "text": "Epoch 08/35 | Loss: 0.1989 | Val Loss: 0.3473 | Val Acc: 87.6% | ETA: 00:00:44"
+      },
+      {
+        "timestamp": "09:54:41",
+        "level": "EPOCH",
+        "text": "Epoch 09/35 | Loss: 0.1942 | Val Loss: 0.3486 | Val Acc: 87.4% | ETA: 00:00:38"
+      },
+      {
+        "timestamp": "09:54:41",
+        "level": "EPOCH",
+        "text": "Epoch 10/35 | Loss: 0.1928 | Val Loss: 0.3511 | Val Acc: 87.6% | ETA: 00:00:34"
+      },
+      {
+        "timestamp": "09:54:41",
+        "level": "EPOCH",
+        "text": "Epoch 11/35 | Loss: 0.1884 | Val Loss: 0.3444 | Val Acc: 87.1% | ETA: 00:00:30"
+      },
+      {
+        "timestamp": "09:54:42",
+        "level": "EPOCH",
+        "text": "Epoch 12/35 | Loss: 0.1874 | Val Loss: 0.3472 | Val Acc: 87.1% | ETA: 00:00:27"
+      },
+      {
+        "timestamp": "09:54:42",
+        "level": "EPOCH",
+        "text": "Epoch 13/35 | Loss: 0.1860 | Val Loss: 0.3537 | Val Acc: 87.1% | ETA: 00:00:25"
+      },
+      {
+        "timestamp": "09:54:43",
+        "level": "EPOCH",
+        "text": "Epoch 14/35 | Loss: 0.1822 | Val Loss: 0.3571 | Val Acc: 86.0% | ETA: 00:00:23"
+      },
+      {
+        "timestamp": "09:54:43",
+        "level": "EPOCH",
+        "text": "Epoch 15/35 | Loss: 0.1805 | Val Loss: 0.3547 | Val Acc: 86.0% | ETA: 00:00:21"
+      },
+      {
+        "timestamp": "09:54:44",
+        "level": "EPOCH",
+        "text": "Epoch 16/35 | Loss: 0.1780 | Val Loss: 0.3585 | Val Acc: 85.8% | ETA: 00:00:19"
+      },
+      {
+        "timestamp": "09:54:44",
+        "level": "EPOCH",
+        "text": "Epoch 17/35 | Loss: 0.1780 | Val Loss: 0.3577 | Val Acc: 85.5% | ETA: 00:00:18"
+      },
+      {
+        "timestamp": "09:54:45",
+        "level": "EPOCH",
+        "text": "Epoch 18/35 | Loss: 0.1759 | Val Loss: 0.3621 | Val Acc: 84.7% | ETA: 00:00:16"
+      },
+      {
+        "timestamp": "09:54:46",
+        "level": "EPOCH",
+        "text": "Epoch 19/35 | Loss: 0.1754 | Val Loss: 0.3635 | Val Acc: 83.9% | ETA: 00:00:15"
+      },
+      {
+        "timestamp": "09:54:46",
+        "level": "EPOCH",
+        "text": "Epoch 20/35 | Loss: 0.1737 | Val Loss: 0.3679 | Val Acc: 83.9% | ETA: 00:00:14"
+      },
+      {
+        "timestamp": "09:54:47",
+        "level": "EPOCH",
+        "text": "Epoch 21/35 | Loss: 0.1712 | Val Loss: 0.3703 | Val Acc: 83.9% | ETA: 00:00:13"
+      },
+      {
+        "timestamp": "09:54:47",
+        "level": "EPOCH",
+        "text": "Epoch 22/35 | Loss: 0.1698 | Val Loss: 0.3713 | Val Acc: 83.9% | ETA: 00:00:11"
+      },
+      {
+        "timestamp": "09:54:48",
+        "level": "EPOCH",
+        "text": "Epoch 23/35 | Loss: 0.1679 | Val Loss: 0.3700 | Val Acc: 83.6% | ETA: 00:00:10"
+      },
+      {
+        "timestamp": "09:54:49",
+        "level": "EPOCH",
+        "text": "Epoch 24/35 | Loss: 0.1665 | Val Loss: 0.3728 | Val Acc: 83.1% | ETA: 00:00:09"
+      },
+      {
+        "timestamp": "09:54:50",
+        "level": "EPOCH",
+        "text": "Epoch 25/35 | Loss: 0.1654 | Val Loss: 0.3760 | Val Acc: 82.5% | ETA: 00:00:09"
+      },
+      {
+        "timestamp": "09:54:50",
+        "level": "EPOCH",
+        "text": "Epoch 26/35 | Loss: 0.1644 | Val Loss: 0.3781 | Val Acc: 82.3% | ETA: 00:00:08"
+      },
+      {
+        "timestamp": "09:54:51",
+        "level": "EPOCH",
+        "text": "Epoch 27/35 | Loss: 0.1626 | Val Loss: 0.3777 | Val Acc: 82.5% | ETA: 00:00:07"
+      },
+      {
+        "timestamp": "09:54:52",
+        "level": "EPOCH",
+        "text": "Epoch 28/35 | Loss: 0.1608 | Val Loss: 0.3803 | Val Acc: 82.5% | ETA: 00:00:06"
+      },
+      {
+        "timestamp": "09:54:53",
+        "level": "EPOCH",
+        "text": "Epoch 29/35 | Loss: 0.1590 | Val Loss: 0.3813 | Val Acc: 82.0% | ETA: 00:00:05"
+      },
+      {
+        "timestamp": "09:54:54",
+        "level": "EPOCH",
+        "text": "Epoch 30/35 | Loss: 0.1581 | Val Loss: 0.3841 | Val Acc: 82.0% | ETA: 00:00:04"
+      },
+      {
+        "timestamp": "09:54:55",
+        "level": "EPOCH",
+        "text": "Epoch 31/35 | Loss: 0.1577 | Val Loss: 0.3839 | Val Acc: 82.0% | ETA: 00:00:03"
+      },
+      {
+        "timestamp": "09:54:56",
+        "level": "EPOCH",
+        "text": "Epoch 32/35 | Loss: 0.1565 | Val Loss: 0.3848 | Val Acc: 82.0% | ETA: 00:00:02"
+      },
+      {
+        "timestamp": "09:54:57",
+        "level": "EPOCH",
+        "text": "Epoch 33/35 | Loss: 0.1553 | Val Loss: 0.3845 | Val Acc: 82.3% | ETA: 00:00:01"
+      },
+      {
+        "timestamp": "09:54:58",
+        "level": "EPOCH",
+        "text": "Epoch 34/35 | Loss: 0.1539 | Val Loss: 0.3851 | Val Acc: 82.3% | ETA: 00:00:00"
+      },
+      {
+        "timestamp": "09:54:59",
+        "level": "EPOCH",
+        "text": "Epoch 35/35 | Loss: 0.1526 | Val Loss: 0.3872 | Val Acc: 82.3% | ETA: 00:00:00"
+      },
+      {
+        "timestamp": "09:54:59",
+        "level": "INFO",
+        "text": "Step 5/5: Running out-of-sample evaluation and backtest simulation on test set..."
+      },
+      {
+        "timestamp": "09:55:00",
+        "level": "SUCCESS",
+        "text": "Model saved to C:\\Users\\adisa\\Documents\\SIWES - L.E.G.I.T HUB\\MarketFlux-branch (2)\\models\\BTCUSDT_15m_v20260918_0955.joblib"
+      },
+      {
+        "timestamp": "09:55:00",
+        "level": "SUCCESS",
+        "text": "Promoted to active model: C:\\Users\\adisa\\Documents\\SIWES - L.E.G.I.T HUB\\MarketFlux-branch (2)\\models\\BTCUSDT_15m.joblib"
+      },
+      {
+        "timestamp": "09:55:00",
+        "level": "SUCCESS",
+        "text": "MODEL TRAINING COMPLETE! Test Accuracy: 74.8% | Simulated Return: +3.42% | Max DD: 8.2% | Sharpe: 7.06"
+      },
+      {
+        "timestamp": "09:55:00",
+        "level": "SUCCESS",
+        "text": "Training session finalized and serialized successfully."
+      }
+    ],
+    "metrics_history": [
+      {
+        "epoch": 1,
+        "total_epochs": 35,
+        "progress_pct": 2,
+        "train_loss": 0.2535,
+        "val_loss": 0.4688,
+        "train_acc": 90.09,
+        "val_acc": 73.66,
+        "best_val_loss": 0.4688,
+        "best_val_score": 73.66,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 11.7,
+        "eta_seconds": 396.1
+      },
+      {
+        "epoch": 2,
+        "total_epochs": 35,
+        "progress_pct": 5,
+        "train_loss": 0.213,
+        "val_loss": 0.387,
+        "train_acc": 90.26,
+        "val_acc": 86.83,
+        "best_val_loss": 0.387,
+        "best_val_score": 86.83,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 11.8,
+        "eta_seconds": 194.8
+      },
+      {
+        "epoch": 3,
+        "total_epochs": 35,
+        "progress_pct": 8,
+        "train_loss": 0.2103,
+        "val_loss": 0.3638,
+        "train_acc": 90.61,
+        "val_acc": 88.17,
+        "best_val_loss": 0.3638,
+        "best_val_score": 88.17,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 12.0,
+        "eta_seconds": 127.7
+      },
+      {
+        "epoch": 4,
+        "total_epochs": 35,
+        "progress_pct": 11,
+        "train_loss": 0.2086,
+        "val_loss": 0.3492,
+        "train_acc": 89.98,
+        "val_acc": 88.98,
+        "best_val_loss": 0.3492,
+        "best_val_score": 88.98,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 12.2,
+        "eta_seconds": 94.4
+      },
+      {
+        "epoch": 5,
+        "total_epochs": 35,
+        "progress_pct": 14,
+        "train_loss": 0.2057,
+        "val_loss": 0.3443,
+        "train_acc": 90.67,
+        "val_acc": 89.52,
+        "best_val_loss": 0.3443,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 12.4,
+        "eta_seconds": 74.3
+      },
+      {
+        "epoch": 6,
+        "total_epochs": 35,
+        "progress_pct": 17,
+        "train_loss": 0.2033,
+        "val_loss": 0.3399,
+        "train_acc": 90.78,
+        "val_acc": 88.71,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 12.6,
+        "eta_seconds": 61.1
+      },
+      {
+        "epoch": 7,
+        "total_epochs": 35,
+        "progress_pct": 20,
+        "train_loss": 0.202,
+        "val_loss": 0.3481,
+        "train_acc": 91.42,
+        "val_acc": 88.44,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 12.9,
+        "eta_seconds": 51.5
+      },
+      {
+        "epoch": 8,
+        "total_epochs": 35,
+        "progress_pct": 22,
+        "train_loss": 0.1989,
+        "val_loss": 0.3473,
+        "train_acc": 91.71,
+        "val_acc": 87.63,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 13.2,
+        "eta_seconds": 44.4
+      },
+      {
+        "epoch": 9,
+        "total_epochs": 35,
+        "progress_pct": 25,
+        "train_loss": 0.1942,
+        "val_loss": 0.3486,
+        "train_acc": 91.88,
+        "val_acc": 87.37,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 13.5,
+        "eta_seconds": 38.9
+      },
+      {
+        "epoch": 10,
+        "total_epochs": 35,
+        "progress_pct": 28,
+        "train_loss": 0.1928,
+        "val_loss": 0.3511,
+        "train_acc": 92.22,
+        "val_acc": 87.63,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 13.8,
+        "eta_seconds": 34.5
+      },
+      {
+        "epoch": 11,
+        "total_epochs": 35,
+        "progress_pct": 31,
+        "train_loss": 0.1884,
+        "val_loss": 0.3444,
+        "train_acc": 92.74,
+        "val_acc": 87.1,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 14.2,
+        "eta_seconds": 30.9
+      },
+      {
+        "epoch": 12,
+        "total_epochs": 35,
+        "progress_pct": 34,
+        "train_loss": 0.1874,
+        "val_loss": 0.3472,
+        "train_acc": 92.63,
+        "val_acc": 87.1,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 14.6,
+        "eta_seconds": 27.9
+      },
+      {
+        "epoch": 13,
+        "total_epochs": 35,
+        "progress_pct": 37,
+        "train_loss": 0.186,
+        "val_loss": 0.3537,
+        "train_acc": 92.63,
+        "val_acc": 87.1,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 15.0,
+        "eta_seconds": 25.4
+      },
+      {
+        "epoch": 14,
+        "total_epochs": 35,
+        "progress_pct": 40,
+        "train_loss": 0.1822,
+        "val_loss": 0.3571,
+        "train_acc": 92.68,
+        "val_acc": 86.02,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 15.5,
+        "eta_seconds": 23.2
+      },
+      {
+        "epoch": 15,
+        "total_epochs": 35,
+        "progress_pct": 42,
+        "train_loss": 0.1805,
+        "val_loss": 0.3547,
+        "train_acc": 92.8,
+        "val_acc": 86.02,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 15.9,
+        "eta_seconds": 21.3
+      },
+      {
+        "epoch": 16,
+        "total_epochs": 35,
+        "progress_pct": 45,
+        "train_loss": 0.178,
+        "val_loss": 0.3585,
+        "train_acc": 93.03,
+        "val_acc": 85.75,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 16.5,
+        "eta_seconds": 19.5
+      },
+      {
+        "epoch": 17,
+        "total_epochs": 35,
+        "progress_pct": 48,
+        "train_loss": 0.178,
+        "val_loss": 0.3577,
+        "train_acc": 93.03,
+        "val_acc": 85.48,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 17.2,
+        "eta_seconds": 18.2
+      },
+      {
+        "epoch": 18,
+        "total_epochs": 35,
+        "progress_pct": 51,
+        "train_loss": 0.1759,
+        "val_loss": 0.3621,
+        "train_acc": 93.15,
+        "val_acc": 84.68,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 17.8,
+        "eta_seconds": 16.8
+      },
+      {
+        "epoch": 19,
+        "total_epochs": 35,
+        "progress_pct": 54,
+        "train_loss": 0.1754,
+        "val_loss": 0.3635,
+        "train_acc": 93.09,
+        "val_acc": 83.87,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 18.4,
+        "eta_seconds": 15.5
+      },
+      {
+        "epoch": 20,
+        "total_epochs": 35,
+        "progress_pct": 57,
+        "train_loss": 0.1737,
+        "val_loss": 0.3679,
+        "train_acc": 93.2,
+        "val_acc": 83.87,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 19.0,
+        "eta_seconds": 14.2
+      },
+      {
+        "epoch": 21,
+        "total_epochs": 35,
+        "progress_pct": 60,
+        "train_loss": 0.1712,
+        "val_loss": 0.3703,
+        "train_acc": 93.32,
+        "val_acc": 83.87,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 19.6,
+        "eta_seconds": 13.1
+      },
+      {
+        "epoch": 22,
+        "total_epochs": 35,
+        "progress_pct": 62,
+        "train_loss": 0.1698,
+        "val_loss": 0.3713,
+        "train_acc": 93.38,
+        "val_acc": 83.87,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 20.3,
+        "eta_seconds": 12.0
+      },
+      {
+        "epoch": 23,
+        "total_epochs": 35,
+        "progress_pct": 65,
+        "train_loss": 0.1679,
+        "val_loss": 0.37,
+        "train_acc": 93.43,
+        "val_acc": 83.6,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 21.0,
+        "eta_seconds": 11.0
+      },
+      {
+        "epoch": 24,
+        "total_epochs": 35,
+        "progress_pct": 68,
+        "train_loss": 0.1665,
+        "val_loss": 0.3728,
+        "train_acc": 93.61,
+        "val_acc": 83.06,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 21.8,
+        "eta_seconds": 10.0
+      },
+      {
+        "epoch": 25,
+        "total_epochs": 35,
+        "progress_pct": 71,
+        "train_loss": 0.1654,
+        "val_loss": 0.376,
+        "train_acc": 93.66,
+        "val_acc": 82.53,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 22.5,
+        "eta_seconds": 9.0
+      },
+      {
+        "epoch": 26,
+        "total_epochs": 35,
+        "progress_pct": 74,
+        "train_loss": 0.1644,
+        "val_loss": 0.3781,
+        "train_acc": 93.66,
+        "val_acc": 82.26,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 23.3,
+        "eta_seconds": 8.1
+      },
+      {
+        "epoch": 27,
+        "total_epochs": 35,
+        "progress_pct": 77,
+        "train_loss": 0.1626,
+        "val_loss": 0.3777,
+        "train_acc": 93.78,
+        "val_acc": 82.53,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 24.2,
+        "eta_seconds": 7.2
+      },
+      {
+        "epoch": 28,
+        "total_epochs": 35,
+        "progress_pct": 80,
+        "train_loss": 0.1608,
+        "val_loss": 0.3803,
+        "train_acc": 93.95,
+        "val_acc": 82.53,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 25.0,
+        "eta_seconds": 6.3
+      },
+      {
+        "epoch": 29,
+        "total_epochs": 35,
+        "progress_pct": 82,
+        "train_loss": 0.159,
+        "val_loss": 0.3813,
+        "train_acc": 93.95,
+        "val_acc": 81.99,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 26.0,
+        "eta_seconds": 5.4
+      },
+      {
+        "epoch": 30,
+        "total_epochs": 35,
+        "progress_pct": 85,
+        "train_loss": 0.1581,
+        "val_loss": 0.3841,
+        "train_acc": 93.89,
+        "val_acc": 81.99,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 26.9,
+        "eta_seconds": 4.5
+      },
+      {
+        "epoch": 31,
+        "total_epochs": 35,
+        "progress_pct": 88,
+        "train_loss": 0.1577,
+        "val_loss": 0.3839,
+        "train_acc": 93.95,
+        "val_acc": 81.99,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 27.8,
+        "eta_seconds": 3.6
+      },
+      {
+        "epoch": 32,
+        "total_epochs": 35,
+        "progress_pct": 91,
+        "train_loss": 0.1565,
+        "val_loss": 0.3848,
+        "train_acc": 94.01,
+        "val_acc": 81.99,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 28.9,
+        "eta_seconds": 2.7
+      },
+      {
+        "epoch": 33,
+        "total_epochs": 35,
+        "progress_pct": 94,
+        "train_loss": 0.1553,
+        "val_loss": 0.3845,
+        "train_acc": 93.95,
+        "val_acc": 82.26,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 29.9,
+        "eta_seconds": 1.8
+      },
+      {
+        "epoch": 34,
+        "total_epochs": 35,
+        "progress_pct": 97,
+        "train_loss": 0.1539,
+        "val_loss": 0.3851,
+        "train_acc": 94.18,
+        "val_acc": 82.26,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 31.1,
+        "eta_seconds": 0.9
+      },
+      {
+        "epoch": 35,
+        "total_epochs": 35,
+        "progress_pct": 100,
+        "train_loss": 0.1526,
+        "val_loss": 0.3872,
+        "train_acc": 94.35,
+        "val_acc": 82.26,
+        "best_val_loss": 0.3399,
+        "best_val_score": 89.52,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 32.2,
+        "eta_seconds": 0.0
+      }
+    ],
+    "summary": {
+      "job_id": "train_20260918_095427_002",
+      "symbol": "BTCUSDT",
+      "timeframe": "15m",
+      "model_type": "ensemble",
+      "version": "v20260918_0955",
+      "model_filename": "BTCUSDT_15m_v20260918_0955.joblib",
+      "model_path": "C:\\Users\\adisa\\Documents\\SIWES - L.E.G.I.T HUB\\MarketFlux-branch (2)\\models\\BTCUSDT_15m_v20260918_0955.joblib",
+      "training_duration": "00:00:32",
+      "duration_seconds": 32.4,
+      "best_val_loss": 0.3399,
+      "test_accuracy": 74.8,
+      "test_precision": 0.3774,
+      "backtest_return": 3.42,
+      "max_drawdown": 8.18,
+      "sharpe_ratio": 7.06,
+      "total_trades": 53,
+      "winning_trades": 20,
+      "losing_trades": 33,
+      "win_rate": 37.74,
+      "metrics_history": [
+        {
+          "epoch": 1,
+          "total_epochs": 35,
+          "progress_pct": 2,
+          "train_loss": 0.2535,
+          "val_loss": 0.4688,
+          "train_acc": 90.09,
+          "val_acc": 73.66,
+          "best_val_loss": 0.4688,
+          "best_val_score": 73.66,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 11.7,
+          "eta_seconds": 396.1
+        },
+        {
+          "epoch": 2,
+          "total_epochs": 35,
+          "progress_pct": 5,
+          "train_loss": 0.213,
+          "val_loss": 0.387,
+          "train_acc": 90.26,
+          "val_acc": 86.83,
+          "best_val_loss": 0.387,
+          "best_val_score": 86.83,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 11.8,
+          "eta_seconds": 194.8
+        },
+        {
+          "epoch": 3,
+          "total_epochs": 35,
+          "progress_pct": 8,
+          "train_loss": 0.2103,
+          "val_loss": 0.3638,
+          "train_acc": 90.61,
+          "val_acc": 88.17,
+          "best_val_loss": 0.3638,
+          "best_val_score": 88.17,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 12.0,
+          "eta_seconds": 127.7
+        },
+        {
+          "epoch": 4,
+          "total_epochs": 35,
+          "progress_pct": 11,
+          "train_loss": 0.2086,
+          "val_loss": 0.3492,
+          "train_acc": 89.98,
+          "val_acc": 88.98,
+          "best_val_loss": 0.3492,
+          "best_val_score": 88.98,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 12.2,
+          "eta_seconds": 94.4
+        },
+        {
+          "epoch": 5,
+          "total_epochs": 35,
+          "progress_pct": 14,
+          "train_loss": 0.2057,
+          "val_loss": 0.3443,
+          "train_acc": 90.67,
+          "val_acc": 89.52,
+          "best_val_loss": 0.3443,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 12.4,
+          "eta_seconds": 74.3
+        },
+        {
+          "epoch": 6,
+          "total_epochs": 35,
+          "progress_pct": 17,
+          "train_loss": 0.2033,
+          "val_loss": 0.3399,
+          "train_acc": 90.78,
+          "val_acc": 88.71,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 12.6,
+          "eta_seconds": 61.1
+        },
+        {
+          "epoch": 7,
+          "total_epochs": 35,
+          "progress_pct": 20,
+          "train_loss": 0.202,
+          "val_loss": 0.3481,
+          "train_acc": 91.42,
+          "val_acc": 88.44,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 12.9,
+          "eta_seconds": 51.5
+        },
+        {
+          "epoch": 8,
+          "total_epochs": 35,
+          "progress_pct": 22,
+          "train_loss": 0.1989,
+          "val_loss": 0.3473,
+          "train_acc": 91.71,
+          "val_acc": 87.63,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 13.2,
+          "eta_seconds": 44.4
+        },
+        {
+          "epoch": 9,
+          "total_epochs": 35,
+          "progress_pct": 25,
+          "train_loss": 0.1942,
+          "val_loss": 0.3486,
+          "train_acc": 91.88,
+          "val_acc": 87.37,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 13.5,
+          "eta_seconds": 38.9
+        },
+        {
+          "epoch": 10,
+          "total_epochs": 35,
+          "progress_pct": 28,
+          "train_loss": 0.1928,
+          "val_loss": 0.3511,
+          "train_acc": 92.22,
+          "val_acc": 87.63,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 13.8,
+          "eta_seconds": 34.5
+        },
+        {
+          "epoch": 11,
+          "total_epochs": 35,
+          "progress_pct": 31,
+          "train_loss": 0.1884,
+          "val_loss": 0.3444,
+          "train_acc": 92.74,
+          "val_acc": 87.1,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 14.2,
+          "eta_seconds": 30.9
+        },
+        {
+          "epoch": 12,
+          "total_epochs": 35,
+          "progress_pct": 34,
+          "train_loss": 0.1874,
+          "val_loss": 0.3472,
+          "train_acc": 92.63,
+          "val_acc": 87.1,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 14.6,
+          "eta_seconds": 27.9
+        },
+        {
+          "epoch": 13,
+          "total_epochs": 35,
+          "progress_pct": 37,
+          "train_loss": 0.186,
+          "val_loss": 0.3537,
+          "train_acc": 92.63,
+          "val_acc": 87.1,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 15.0,
+          "eta_seconds": 25.4
+        },
+        {
+          "epoch": 14,
+          "total_epochs": 35,
+          "progress_pct": 40,
+          "train_loss": 0.1822,
+          "val_loss": 0.3571,
+          "train_acc": 92.68,
+          "val_acc": 86.02,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 15.5,
+          "eta_seconds": 23.2
+        },
+        {
+          "epoch": 15,
+          "total_epochs": 35,
+          "progress_pct": 42,
+          "train_loss": 0.1805,
+          "val_loss": 0.3547,
+          "train_acc": 92.8,
+          "val_acc": 86.02,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 15.9,
+          "eta_seconds": 21.3
+        },
+        {
+          "epoch": 16,
+          "total_epochs": 35,
+          "progress_pct": 45,
+          "train_loss": 0.178,
+          "val_loss": 0.3585,
+          "train_acc": 93.03,
+          "val_acc": 85.75,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 16.5,
+          "eta_seconds": 19.5
+        },
+        {
+          "epoch": 17,
+          "total_epochs": 35,
+          "progress_pct": 48,
+          "train_loss": 0.178,
+          "val_loss": 0.3577,
+          "train_acc": 93.03,
+          "val_acc": 85.48,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 17.2,
+          "eta_seconds": 18.2
+        },
+        {
+          "epoch": 18,
+          "total_epochs": 35,
+          "progress_pct": 51,
+          "train_loss": 0.1759,
+          "val_loss": 0.3621,
+          "train_acc": 93.15,
+          "val_acc": 84.68,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 17.8,
+          "eta_seconds": 16.8
+        },
+        {
+          "epoch": 19,
+          "total_epochs": 35,
+          "progress_pct": 54,
+          "train_loss": 0.1754,
+          "val_loss": 0.3635,
+          "train_acc": 93.09,
+          "val_acc": 83.87,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 18.4,
+          "eta_seconds": 15.5
+        },
+        {
+          "epoch": 20,
+          "total_epochs": 35,
+          "progress_pct": 57,
+          "train_loss": 0.1737,
+          "val_loss": 0.3679,
+          "train_acc": 93.2,
+          "val_acc": 83.87,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 19.0,
+          "eta_seconds": 14.2
+        },
+        {
+          "epoch": 21,
+          "total_epochs": 35,
+          "progress_pct": 60,
+          "train_loss": 0.1712,
+          "val_loss": 0.3703,
+          "train_acc": 93.32,
+          "val_acc": 83.87,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 19.6,
+          "eta_seconds": 13.1
+        },
+        {
+          "epoch": 22,
+          "total_epochs": 35,
+          "progress_pct": 62,
+          "train_loss": 0.1698,
+          "val_loss": 0.3713,
+          "train_acc": 93.38,
+          "val_acc": 83.87,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 20.3,
+          "eta_seconds": 12.0
+        },
+        {
+          "epoch": 23,
+          "total_epochs": 35,
+          "progress_pct": 65,
+          "train_loss": 0.1679,
+          "val_loss": 0.37,
+          "train_acc": 93.43,
+          "val_acc": 83.6,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 21.0,
+          "eta_seconds": 11.0
+        },
+        {
+          "epoch": 24,
+          "total_epochs": 35,
+          "progress_pct": 68,
+          "train_loss": 0.1665,
+          "val_loss": 0.3728,
+          "train_acc": 93.61,
+          "val_acc": 83.06,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 21.8,
+          "eta_seconds": 10.0
+        },
+        {
+          "epoch": 25,
+          "total_epochs": 35,
+          "progress_pct": 71,
+          "train_loss": 0.1654,
+          "val_loss": 0.376,
+          "train_acc": 93.66,
+          "val_acc": 82.53,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 22.5,
+          "eta_seconds": 9.0
+        },
+        {
+          "epoch": 26,
+          "total_epochs": 35,
+          "progress_pct": 74,
+          "train_loss": 0.1644,
+          "val_loss": 0.3781,
+          "train_acc": 93.66,
+          "val_acc": 82.26,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 23.3,
+          "eta_seconds": 8.1
+        },
+        {
+          "epoch": 27,
+          "total_epochs": 35,
+          "progress_pct": 77,
+          "train_loss": 0.1626,
+          "val_loss": 0.3777,
+          "train_acc": 93.78,
+          "val_acc": 82.53,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 24.2,
+          "eta_seconds": 7.2
+        },
+        {
+          "epoch": 28,
+          "total_epochs": 35,
+          "progress_pct": 80,
+          "train_loss": 0.1608,
+          "val_loss": 0.3803,
+          "train_acc": 93.95,
+          "val_acc": 82.53,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 25.0,
+          "eta_seconds": 6.3
+        },
+        {
+          "epoch": 29,
+          "total_epochs": 35,
+          "progress_pct": 82,
+          "train_loss": 0.159,
+          "val_loss": 0.3813,
+          "train_acc": 93.95,
+          "val_acc": 81.99,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 26.0,
+          "eta_seconds": 5.4
+        },
+        {
+          "epoch": 30,
+          "total_epochs": 35,
+          "progress_pct": 85,
+          "train_loss": 0.1581,
+          "val_loss": 0.3841,
+          "train_acc": 93.89,
+          "val_acc": 81.99,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 26.9,
+          "eta_seconds": 4.5
+        },
+        {
+          "epoch": 31,
+          "total_epochs": 35,
+          "progress_pct": 88,
+          "train_loss": 0.1577,
+          "val_loss": 0.3839,
+          "train_acc": 93.95,
+          "val_acc": 81.99,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 27.8,
+          "eta_seconds": 3.6
+        },
+        {
+          "epoch": 32,
+          "total_epochs": 35,
+          "progress_pct": 91,
+          "train_loss": 0.1565,
+          "val_loss": 0.3848,
+          "train_acc": 94.01,
+          "val_acc": 81.99,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 28.9,
+          "eta_seconds": 2.7
+        },
+        {
+          "epoch": 33,
+          "total_epochs": 35,
+          "progress_pct": 94,
+          "train_loss": 0.1553,
+          "val_loss": 0.3845,
+          "train_acc": 93.95,
+          "val_acc": 82.26,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 29.9,
+          "eta_seconds": 1.8
+        },
+        {
+          "epoch": 34,
+          "total_epochs": 35,
+          "progress_pct": 97,
+          "train_loss": 0.1539,
+          "val_loss": 0.3851,
+          "train_acc": 94.18,
+          "val_acc": 82.26,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 31.1,
+          "eta_seconds": 0.9
+        },
+        {
+          "epoch": 35,
+          "total_epochs": 35,
+          "progress_pct": 100,
+          "train_loss": 0.1526,
+          "val_loss": 0.3872,
+          "train_acc": 94.35,
+          "val_acc": 82.26,
+          "best_val_loss": 0.3399,
+          "best_val_score": 89.52,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 32.2,
+          "eta_seconds": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "id": "train_20260921_114528_003",
+    "symbol": "BTCUSDT",
+    "timeframe": "15m",
+    "model_type": "ensemble",
+    "epochs": 35,
+    "batch_size": 32,
+    "learning_rate": 0.05,
+    "limit": 2500,
+    "status": "COMPLETED",
+    "created_at": "2026-09-21T11:45:28.571709+00:00",
+    "started_at": "2026-09-21T11:45:28.585933+00:00",
+    "completed_at": "2026-09-21T11:46:38.207630+00:00",
+    "current_epoch": 35,
+    "progress_pct": 100,
+    "train_loss": 0.13,
+    "val_loss": 0.5221,
+    "train_acc": 94.55,
+    "val_acc": 77.57,
+    "best_val_loss": 0.4977,
+    "best_val_score": 81.08,
+    "elapsed_seconds": 69.3,
+    "elapsed_formatted": "00:01:09",
+    "eta_seconds": 0.0,
+    "eta_formatted": "00:00:00",
+    "model_path": "C:\\Users\\Emmanuel\\Documents\\SIWES - L.E.G.I.T HUB\\MarketFlux-branch (2)\\models\\BTCUSDT_15m_v20260921_1146.joblib",
+    "model_version": "v20260921_1146",
+    "error": null,
+    "logs_count": 51,
+    "recent_logs": [
+      {
+        "timestamp": "11:45:28",
+        "level": "INFO",
+        "text": "Starting Training Job: train_20260921_114528_003"
+      },
+      {
+        "timestamp": "11:45:28",
+        "level": "INFO",
+        "text": "Target: BTCUSDT | Timeframe: 15m | Candles: 2500 | Architecture: ensemble"
+      },
+      {
+        "timestamp": "11:45:28",
+        "level": "INFO",
+        "text": "Step 1/5: Fetching real historical market data..."
+      },
+      {
+        "timestamp": "11:46:11",
+        "level": "SUCCESS",
+        "text": "Loaded 2,500 real candles from Binance/Alpaca"
+      },
+      {
+        "timestamp": "11:46:11",
+        "level": "INFO",
+        "text": "Step 2/5: Engineering SMC/ICT technical features (Liquidity Sweeps, FVG, Order Blocks, BOS)..."
+      },
+      {
+        "timestamp": "11:46:13",
+        "level": "SUCCESS",
+        "text": "Feature engineering complete: 2,467 samples \u00d7 50 features"
+      },
+      {
+        "timestamp": "11:46:13",
+        "level": "INFO",
+        "text": "Raw dataset win-rate baseline: 14.3%"
+      },
+      {
+        "timestamp": "11:46:13",
+        "level": "INFO",
+        "text": "Step 3/5: Partitioning chronological train / validation / test splits..."
+      },
+      {
+        "timestamp": "11:46:13",
+        "level": "INFO",
+        "text": "Split sizes: Train=1,726 (70%) | Val=370 (15%) | Test=371 (15%)"
+      },
+      {
+        "timestamp": "11:46:13",
+        "level": "INFO",
+        "text": "Step 4/5: Initializing ensemble architecture and starting 35 iterative epochs..."
+      },
+      {
+        "timestamp": "11:46:13",
+        "level": "EPOCH",
+        "text": "Epoch 01/35 | Loss: 0.2140 | Val Loss: 0.5540 | Val Acc: 76.8% | ETA: 00:25:31"
+      },
+      {
+        "timestamp": "11:46:13",
+        "level": "EPOCH",
+        "text": "Epoch 02/35 | Loss: 0.1869 | Val Loss: 0.5433 | Val Acc: 78.6% | ETA: 00:12:25"
+      },
+      {
+        "timestamp": "11:46:13",
+        "level": "EPOCH",
+        "text": "Epoch 03/35 | Loss: 0.1779 | Val Loss: 0.5221 | Val Acc: 79.2% | ETA: 00:08:03"
+      },
+      {
+        "timestamp": "11:46:14",
+        "level": "EPOCH",
+        "text": "Epoch 04/35 | Loss: 0.1770 | Val Loss: 0.5347 | Val Acc: 78.4% | ETA: 00:05:52"
+      },
+      {
+        "timestamp": "11:46:14",
+        "level": "EPOCH",
+        "text": "Epoch 05/35 | Loss: 0.1731 | Val Loss: 0.5181 | Val Acc: 79.2% | ETA: 00:04:34"
+      },
+      {
+        "timestamp": "11:46:14",
+        "level": "EPOCH",
+        "text": "Epoch 06/35 | Loss: 0.1684 | Val Loss: 0.5110 | Val Acc: 78.9% | ETA: 00:03:42"
+      },
+      {
+        "timestamp": "11:46:14",
+        "level": "EPOCH",
+        "text": "Epoch 07/35 | Loss: 0.1662 | Val Loss: 0.5150 | Val Acc: 78.1% | ETA: 00:03:05"
+      },
+      {
+        "timestamp": "11:46:15",
+        "level": "EPOCH",
+        "text": "Epoch 08/35 | Loss: 0.1651 | Val Loss: 0.5147 | Val Acc: 79.2% | ETA: 00:02:37"
+      },
+      {
+        "timestamp": "11:46:15",
+        "level": "EPOCH",
+        "text": "Epoch 09/35 | Loss: 0.1636 | Val Loss: 0.5086 | Val Acc: 79.2% | ETA: 00:02:16"
+      },
+      {
+        "timestamp": "11:46:16",
+        "level": "EPOCH",
+        "text": "Epoch 10/35 | Loss: 0.1628 | Val Loss: 0.5021 | Val Acc: 79.2% | ETA: 00:01:59"
+      },
+      {
+        "timestamp": "11:46:16",
+        "level": "EPOCH",
+        "text": "Epoch 11/35 | Loss: 0.1610 | Val Loss: 0.5021 | Val Acc: 79.2% | ETA: 00:01:45"
+      },
+      {
+        "timestamp": "11:46:17",
+        "level": "EPOCH",
+        "text": "Epoch 12/35 | Loss: 0.1600 | Val Loss: 0.5113 | Val Acc: 78.9% | ETA: 00:01:33"
+      },
+      {
+        "timestamp": "11:46:17",
+        "level": "EPOCH",
+        "text": "Epoch 13/35 | Loss: 0.1573 | Val Loss: 0.5049 | Val Acc: 78.9% | ETA: 00:01:23"
+      },
+      {
+        "timestamp": "11:46:18",
+        "level": "EPOCH",
+        "text": "Epoch 14/35 | Loss: 0.1581 | Val Loss: 0.5054 | Val Acc: 78.9% | ETA: 00:01:14"
+      },
+      {
+        "timestamp": "11:46:19",
+        "level": "EPOCH",
+        "text": "Epoch 15/35 | Loss: 0.1573 | Val Loss: 0.5000 | Val Acc: 78.9% | ETA: 00:01:07"
+      },
+      {
+        "timestamp": "11:46:20",
+        "level": "EPOCH",
+        "text": "Epoch 16/35 | Loss: 0.1552 | Val Loss: 0.4977 | Val Acc: 78.9% | ETA: 00:01:01"
+      },
+      {
+        "timestamp": "11:46:20",
+        "level": "EPOCH",
+        "text": "Epoch 17/35 | Loss: 0.1534 | Val Loss: 0.5013 | Val Acc: 78.6% | ETA: 00:00:55"
+      },
+      {
+        "timestamp": "11:46:21",
+        "level": "EPOCH",
+        "text": "Epoch 18/35 | Loss: 0.1527 | Val Loss: 0.5027 | Val Acc: 78.6% | ETA: 00:00:50"
+      },
+      {
+        "timestamp": "11:46:22",
+        "level": "EPOCH",
+        "text": "Epoch 19/35 | Loss: 0.1496 | Val Loss: 0.5076 | Val Acc: 78.9% | ETA: 00:00:45"
+      },
+      {
+        "timestamp": "11:46:23",
+        "level": "EPOCH",
+        "text": "Epoch 20/35 | Loss: 0.1482 | Val Loss: 0.5017 | Val Acc: 78.9% | ETA: 00:00:41"
+      },
+      {
+        "timestamp": "11:46:24",
+        "level": "EPOCH",
+        "text": "Epoch 21/35 | Loss: 0.1470 | Val Loss: 0.5116 | Val Acc: 79.7% | ETA: 00:00:37"
+      },
+      {
+        "timestamp": "11:46:24",
+        "level": "EPOCH",
+        "text": "Epoch 22/35 | Loss: 0.1451 | Val Loss: 0.5083 | Val Acc: 80.5% | ETA: 00:00:33"
+      },
+      {
+        "timestamp": "11:46:25",
+        "level": "EPOCH",
+        "text": "Epoch 23/35 | Loss: 0.1433 | Val Loss: 0.5080 | Val Acc: 80.8% | ETA: 00:00:29"
+      },
+      {
+        "timestamp": "11:46:26",
+        "level": "EPOCH",
+        "text": "Epoch 24/35 | Loss: 0.1412 | Val Loss: 0.5043 | Val Acc: 81.1% | ETA: 00:00:26"
+      },
+      {
+        "timestamp": "11:46:27",
+        "level": "EPOCH",
+        "text": "Epoch 25/35 | Loss: 0.1395 | Val Loss: 0.5035 | Val Acc: 80.8% | ETA: 00:00:23"
+      },
+      {
+        "timestamp": "11:46:28",
+        "level": "EPOCH",
+        "text": "Epoch 26/35 | Loss: 0.1390 | Val Loss: 0.5075 | Val Acc: 79.7% | ETA: 00:00:20"
+      },
+      {
+        "timestamp": "11:46:29",
+        "level": "EPOCH",
+        "text": "Epoch 27/35 | Loss: 0.1375 | Val Loss: 0.5114 | Val Acc: 78.6% | ETA: 00:00:17"
+      },
+      {
+        "timestamp": "11:46:30",
+        "level": "EPOCH",
+        "text": "Epoch 28/35 | Loss: 0.1364 | Val Loss: 0.5080 | Val Acc: 79.2% | ETA: 00:00:15"
+      },
+      {
+        "timestamp": "11:46:31",
+        "level": "EPOCH",
+        "text": "Epoch 29/35 | Loss: 0.1346 | Val Loss: 0.5119 | Val Acc: 78.1% | ETA: 00:00:12"
+      },
+      {
+        "timestamp": "11:46:32",
+        "level": "EPOCH",
+        "text": "Epoch 30/35 | Loss: 0.1341 | Val Loss: 0.5173 | Val Acc: 77.3% | ETA: 00:00:10"
+      },
+      {
+        "timestamp": "11:46:33",
+        "level": "EPOCH",
+        "text": "Epoch 31/35 | Loss: 0.1331 | Val Loss: 0.5149 | Val Acc: 78.1% | ETA: 00:00:08"
+      },
+      {
+        "timestamp": "11:46:34",
+        "level": "EPOCH",
+        "text": "Epoch 32/35 | Loss: 0.1328 | Val Loss: 0.5148 | Val Acc: 78.1% | ETA: 00:00:06"
+      },
+      {
+        "timestamp": "11:46:35",
+        "level": "EPOCH",
+        "text": "Epoch 33/35 | Loss: 0.1319 | Val Loss: 0.5144 | Val Acc: 77.6% | ETA: 00:00:04"
+      },
+      {
+        "timestamp": "11:46:36",
+        "level": "EPOCH",
+        "text": "Epoch 34/35 | Loss: 0.1311 | Val Loss: 0.5154 | Val Acc: 77.3% | ETA: 00:00:02"
+      },
+      {
+        "timestamp": "11:46:37",
+        "level": "EPOCH",
+        "text": "Epoch 35/35 | Loss: 0.1300 | Val Loss: 0.5221 | Val Acc: 77.6% | ETA: 00:00:00"
+      },
+      {
+        "timestamp": "11:46:37",
+        "level": "INFO",
+        "text": "Step 5/5: Running out-of-sample evaluation and backtest simulation on test set..."
+      },
+      {
+        "timestamp": "11:46:38",
+        "level": "SUCCESS",
+        "text": "Model saved to C:\\Users\\Emmanuel\\Documents\\SIWES - L.E.G.I.T HUB\\MarketFlux-branch (2)\\models\\BTCUSDT_15m_v20260921_1146.joblib"
+      },
+      {
+        "timestamp": "11:46:38",
+        "level": "SUCCESS",
+        "text": "Promoted to active model: C:\\Users\\Emmanuel\\Documents\\SIWES - L.E.G.I.T HUB\\MarketFlux-branch (2)\\models\\BTCUSDT_15m.joblib"
+      },
+      {
+        "timestamp": "11:46:38",
+        "level": "SUCCESS",
+        "text": "MODEL TRAINING COMPLETE! Test Accuracy: 66.6% | Simulated Return: -9.56% | Max DD: 12.2% | Sharpe: -58.70"
+      },
+      {
+        "timestamp": "11:46:38",
+        "level": "SUCCESS",
+        "text": "Training session finalized and serialized successfully."
+      }
+    ],
+    "metrics_history": [
+      {
+        "epoch": 1,
+        "total_epochs": 35,
+        "progress_pct": 2,
+        "train_loss": 0.214,
+        "val_loss": 0.554,
+        "train_acc": 92.18,
+        "val_acc": 76.76,
+        "best_val_loss": 0.554,
+        "best_val_score": 76.76,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 45.0,
+        "eta_seconds": 1531.6
+      },
+      {
+        "epoch": 2,
+        "total_epochs": 35,
+        "progress_pct": 5,
+        "train_loss": 0.1869,
+        "val_loss": 0.5433,
+        "train_acc": 90.9,
+        "val_acc": 78.65,
+        "best_val_loss": 0.5433,
+        "best_val_score": 78.65,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 45.2,
+        "eta_seconds": 745.3
+      },
+      {
+        "epoch": 3,
+        "total_epochs": 35,
+        "progress_pct": 8,
+        "train_loss": 0.1779,
+        "val_loss": 0.5221,
+        "train_acc": 91.19,
+        "val_acc": 79.19,
+        "best_val_loss": 0.5221,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 45.3,
+        "eta_seconds": 483.6
+      },
+      {
+        "epoch": 4,
+        "total_epochs": 35,
+        "progress_pct": 11,
+        "train_loss": 0.177,
+        "val_loss": 0.5347,
+        "train_acc": 91.66,
+        "val_acc": 78.38,
+        "best_val_loss": 0.5221,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 45.5,
+        "eta_seconds": 353.0
+      },
+      {
+        "epoch": 5,
+        "total_epochs": 35,
+        "progress_pct": 14,
+        "train_loss": 0.1731,
+        "val_loss": 0.5181,
+        "train_acc": 91.66,
+        "val_acc": 79.19,
+        "best_val_loss": 0.5181,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 45.8,
+        "eta_seconds": 274.6
+      },
+      {
+        "epoch": 6,
+        "total_epochs": 35,
+        "progress_pct": 17,
+        "train_loss": 0.1684,
+        "val_loss": 0.511,
+        "train_acc": 91.6,
+        "val_acc": 78.92,
+        "best_val_loss": 0.511,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 46.0,
+        "eta_seconds": 222.5
+      },
+      {
+        "epoch": 7,
+        "total_epochs": 35,
+        "progress_pct": 20,
+        "train_loss": 0.1662,
+        "val_loss": 0.515,
+        "train_acc": 91.66,
+        "val_acc": 78.11,
+        "best_val_loss": 0.511,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 46.3,
+        "eta_seconds": 185.3
+      },
+      {
+        "epoch": 8,
+        "total_epochs": 35,
+        "progress_pct": 22,
+        "train_loss": 0.1651,
+        "val_loss": 0.5147,
+        "train_acc": 91.77,
+        "val_acc": 79.19,
+        "best_val_loss": 0.511,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 46.7,
+        "eta_seconds": 157.5
+      },
+      {
+        "epoch": 9,
+        "total_epochs": 35,
+        "progress_pct": 25,
+        "train_loss": 0.1636,
+        "val_loss": 0.5086,
+        "train_acc": 92.0,
+        "val_acc": 79.19,
+        "best_val_loss": 0.5086,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 47.1,
+        "eta_seconds": 136.1
+      },
+      {
+        "epoch": 10,
+        "total_epochs": 35,
+        "progress_pct": 28,
+        "train_loss": 0.1628,
+        "val_loss": 0.5021,
+        "train_acc": 92.06,
+        "val_acc": 79.19,
+        "best_val_loss": 0.5021,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 47.6,
+        "eta_seconds": 119.0
+      },
+      {
+        "epoch": 11,
+        "total_epochs": 35,
+        "progress_pct": 31,
+        "train_loss": 0.161,
+        "val_loss": 0.5021,
+        "train_acc": 92.06,
+        "val_acc": 79.19,
+        "best_val_loss": 0.5021,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 48.1,
+        "eta_seconds": 105.1
+      },
+      {
+        "epoch": 12,
+        "total_epochs": 35,
+        "progress_pct": 34,
+        "train_loss": 0.16,
+        "val_loss": 0.5113,
+        "train_acc": 92.18,
+        "val_acc": 78.92,
+        "best_val_loss": 0.5021,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 48.7,
+        "eta_seconds": 93.3
+      },
+      {
+        "epoch": 13,
+        "total_epochs": 35,
+        "progress_pct": 37,
+        "train_loss": 0.1573,
+        "val_loss": 0.5049,
+        "train_acc": 92.47,
+        "val_acc": 78.92,
+        "best_val_loss": 0.5021,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 49.2,
+        "eta_seconds": 83.3
+      },
+      {
+        "epoch": 14,
+        "total_epochs": 35,
+        "progress_pct": 40,
+        "train_loss": 0.1581,
+        "val_loss": 0.5054,
+        "train_acc": 92.41,
+        "val_acc": 78.92,
+        "best_val_loss": 0.5021,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 50.0,
+        "eta_seconds": 75.0
+      },
+      {
+        "epoch": 15,
+        "total_epochs": 35,
+        "progress_pct": 42,
+        "train_loss": 0.1573,
+        "val_loss": 0.5,
+        "train_acc": 92.58,
+        "val_acc": 78.92,
+        "best_val_loss": 0.5,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 50.7,
+        "eta_seconds": 67.6
+      },
+      {
+        "epoch": 16,
+        "total_epochs": 35,
+        "progress_pct": 45,
+        "train_loss": 0.1552,
+        "val_loss": 0.4977,
+        "train_acc": 92.7,
+        "val_acc": 78.92,
+        "best_val_loss": 0.4977,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 51.5,
+        "eta_seconds": 61.2
+      },
+      {
+        "epoch": 17,
+        "total_epochs": 35,
+        "progress_pct": 48,
+        "train_loss": 0.1534,
+        "val_loss": 0.5013,
+        "train_acc": 92.76,
+        "val_acc": 78.65,
+        "best_val_loss": 0.4977,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 52.3,
+        "eta_seconds": 55.4
+      },
+      {
+        "epoch": 18,
+        "total_epochs": 35,
+        "progress_pct": 51,
+        "train_loss": 0.1527,
+        "val_loss": 0.5027,
+        "train_acc": 92.82,
+        "val_acc": 78.65,
+        "best_val_loss": 0.4977,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 53.1,
+        "eta_seconds": 50.1
+      },
+      {
+        "epoch": 19,
+        "total_epochs": 35,
+        "progress_pct": 54,
+        "train_loss": 0.1496,
+        "val_loss": 0.5076,
+        "train_acc": 93.28,
+        "val_acc": 78.92,
+        "best_val_loss": 0.4977,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 53.9,
+        "eta_seconds": 45.4
+      },
+      {
+        "epoch": 20,
+        "total_epochs": 35,
+        "progress_pct": 57,
+        "train_loss": 0.1482,
+        "val_loss": 0.5017,
+        "train_acc": 93.45,
+        "val_acc": 78.92,
+        "best_val_loss": 0.4977,
+        "best_val_score": 79.19,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 54.8,
+        "eta_seconds": 41.1
+      },
+      {
+        "epoch": 21,
+        "total_epochs": 35,
+        "progress_pct": 60,
+        "train_loss": 0.147,
+        "val_loss": 0.5116,
+        "train_acc": 93.45,
+        "val_acc": 79.73,
+        "best_val_loss": 0.4977,
+        "best_val_score": 79.73,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 55.6,
+        "eta_seconds": 37.1
+      },
+      {
+        "epoch": 22,
+        "total_epochs": 35,
+        "progress_pct": 62,
+        "train_loss": 0.1451,
+        "val_loss": 0.5083,
+        "train_acc": 93.51,
+        "val_acc": 80.54,
+        "best_val_loss": 0.4977,
+        "best_val_score": 80.54,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 56.3,
+        "eta_seconds": 33.3
+      },
+      {
+        "epoch": 23,
+        "total_epochs": 35,
+        "progress_pct": 65,
+        "train_loss": 0.1433,
+        "val_loss": 0.508,
+        "train_acc": 93.68,
+        "val_acc": 80.81,
+        "best_val_loss": 0.4977,
+        "best_val_score": 80.81,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 57.1,
+        "eta_seconds": 29.8
+      },
+      {
+        "epoch": 24,
+        "total_epochs": 35,
+        "progress_pct": 68,
+        "train_loss": 0.1412,
+        "val_loss": 0.5043,
+        "train_acc": 93.74,
+        "val_acc": 81.08,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 58.0,
+        "eta_seconds": 26.6
+      },
+      {
+        "epoch": 25,
+        "total_epochs": 35,
+        "progress_pct": 71,
+        "train_loss": 0.1395,
+        "val_loss": 0.5035,
+        "train_acc": 93.8,
+        "val_acc": 80.81,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 58.8,
+        "eta_seconds": 23.5
+      },
+      {
+        "epoch": 26,
+        "total_epochs": 35,
+        "progress_pct": 74,
+        "train_loss": 0.139,
+        "val_loss": 0.5075,
+        "train_acc": 93.92,
+        "val_acc": 79.73,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 59.7,
+        "eta_seconds": 20.7
+      },
+      {
+        "epoch": 27,
+        "total_epochs": 35,
+        "progress_pct": 77,
+        "train_loss": 0.1375,
+        "val_loss": 0.5114,
+        "train_acc": 93.92,
+        "val_acc": 78.65,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 60.7,
+        "eta_seconds": 18.0
+      },
+      {
+        "epoch": 28,
+        "total_epochs": 35,
+        "progress_pct": 80,
+        "train_loss": 0.1364,
+        "val_loss": 0.508,
+        "train_acc": 94.03,
+        "val_acc": 79.19,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 61.7,
+        "eta_seconds": 15.4
+      },
+      {
+        "epoch": 29,
+        "total_epochs": 35,
+        "progress_pct": 82,
+        "train_loss": 0.1346,
+        "val_loss": 0.5119,
+        "train_acc": 94.21,
+        "val_acc": 78.11,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 62.7,
+        "eta_seconds": 13.0
+      },
+      {
+        "epoch": 30,
+        "total_epochs": 35,
+        "progress_pct": 85,
+        "train_loss": 0.1341,
+        "val_loss": 0.5173,
+        "train_acc": 94.21,
+        "val_acc": 77.3,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 63.8,
+        "eta_seconds": 10.6
+      },
+      {
+        "epoch": 31,
+        "total_epochs": 35,
+        "progress_pct": 88,
+        "train_loss": 0.1331,
+        "val_loss": 0.5149,
+        "train_acc": 94.44,
+        "val_acc": 78.11,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 65.0,
+        "eta_seconds": 8.4
+      },
+      {
+        "epoch": 32,
+        "total_epochs": 35,
+        "progress_pct": 91,
+        "train_loss": 0.1328,
+        "val_loss": 0.5148,
+        "train_acc": 94.38,
+        "val_acc": 78.11,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 66.0,
+        "eta_seconds": 6.2
+      },
+      {
+        "epoch": 33,
+        "total_epochs": 35,
+        "progress_pct": 94,
+        "train_loss": 0.1319,
+        "val_loss": 0.5144,
+        "train_acc": 94.38,
+        "val_acc": 77.57,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 67.1,
+        "eta_seconds": 4.1
+      },
+      {
+        "epoch": 34,
+        "total_epochs": 35,
+        "progress_pct": 97,
+        "train_loss": 0.1311,
+        "val_loss": 0.5154,
+        "train_acc": 94.5,
+        "val_acc": 77.3,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 68.2,
+        "eta_seconds": 2.0
+      },
+      {
+        "epoch": 35,
+        "total_epochs": 35,
+        "progress_pct": 100,
+        "train_loss": 0.13,
+        "val_loss": 0.5221,
+        "train_acc": 94.55,
+        "val_acc": 77.57,
+        "best_val_loss": 0.4977,
+        "best_val_score": 81.08,
+        "learning_rate": 0.05,
+        "elapsed_seconds": 69.3,
+        "eta_seconds": 0.0
+      }
+    ],
+    "summary": {
+      "job_id": "train_20260921_114528_003",
+      "symbol": "BTCUSDT",
+      "timeframe": "15m",
+      "model_type": "ensemble",
+      "version": "v20260921_1146",
+      "model_filename": "BTCUSDT_15m_v20260921_1146.joblib",
+      "model_path": "C:\\Users\\Emmanuel\\Documents\\SIWES - L.E.G.I.T HUB\\MarketFlux-branch (2)\\models\\BTCUSDT_15m_v20260921_1146.joblib",
+      "training_duration": "00:01:09",
+      "duration_seconds": 69.5,
+      "best_val_loss": 0.4977,
+      "test_accuracy": 66.58,
+      "test_precision": 0.1034,
+      "backtest_return": -9.56,
+      "max_drawdown": 12.22,
+      "sharpe_ratio": -58.7,
+      "total_trades": 29,
+      "winning_trades": 3,
+      "losing_trades": 26,
+      "win_rate": 10.34,
+      "metrics_history": [
+        {
+          "epoch": 1,
+          "total_epochs": 35,
+          "progress_pct": 2,
+          "train_loss": 0.214,
+          "val_loss": 0.554,
+          "train_acc": 92.18,
+          "val_acc": 76.76,
+          "best_val_loss": 0.554,
+          "best_val_score": 76.76,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 45.0,
+          "eta_seconds": 1531.6
+        },
+        {
+          "epoch": 2,
+          "total_epochs": 35,
+          "progress_pct": 5,
+          "train_loss": 0.1869,
+          "val_loss": 0.5433,
+          "train_acc": 90.9,
+          "val_acc": 78.65,
+          "best_val_loss": 0.5433,
+          "best_val_score": 78.65,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 45.2,
+          "eta_seconds": 745.3
+        },
+        {
+          "epoch": 3,
+          "total_epochs": 35,
+          "progress_pct": 8,
+          "train_loss": 0.1779,
+          "val_loss": 0.5221,
+          "train_acc": 91.19,
+          "val_acc": 79.19,
+          "best_val_loss": 0.5221,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 45.3,
+          "eta_seconds": 483.6
+        },
+        {
+          "epoch": 4,
+          "total_epochs": 35,
+          "progress_pct": 11,
+          "train_loss": 0.177,
+          "val_loss": 0.5347,
+          "train_acc": 91.66,
+          "val_acc": 78.38,
+          "best_val_loss": 0.5221,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 45.5,
+          "eta_seconds": 353.0
+        },
+        {
+          "epoch": 5,
+          "total_epochs": 35,
+          "progress_pct": 14,
+          "train_loss": 0.1731,
+          "val_loss": 0.5181,
+          "train_acc": 91.66,
+          "val_acc": 79.19,
+          "best_val_loss": 0.5181,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 45.8,
+          "eta_seconds": 274.6
+        },
+        {
+          "epoch": 6,
+          "total_epochs": 35,
+          "progress_pct": 17,
+          "train_loss": 0.1684,
+          "val_loss": 0.511,
+          "train_acc": 91.6,
+          "val_acc": 78.92,
+          "best_val_loss": 0.511,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 46.0,
+          "eta_seconds": 222.5
+        },
+        {
+          "epoch": 7,
+          "total_epochs": 35,
+          "progress_pct": 20,
+          "train_loss": 0.1662,
+          "val_loss": 0.515,
+          "train_acc": 91.66,
+          "val_acc": 78.11,
+          "best_val_loss": 0.511,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 46.3,
+          "eta_seconds": 185.3
+        },
+        {
+          "epoch": 8,
+          "total_epochs": 35,
+          "progress_pct": 22,
+          "train_loss": 0.1651,
+          "val_loss": 0.5147,
+          "train_acc": 91.77,
+          "val_acc": 79.19,
+          "best_val_loss": 0.511,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 46.7,
+          "eta_seconds": 157.5
+        },
+        {
+          "epoch": 9,
+          "total_epochs": 35,
+          "progress_pct": 25,
+          "train_loss": 0.1636,
+          "val_loss": 0.5086,
+          "train_acc": 92.0,
+          "val_acc": 79.19,
+          "best_val_loss": 0.5086,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 47.1,
+          "eta_seconds": 136.1
+        },
+        {
+          "epoch": 10,
+          "total_epochs": 35,
+          "progress_pct": 28,
+          "train_loss": 0.1628,
+          "val_loss": 0.5021,
+          "train_acc": 92.06,
+          "val_acc": 79.19,
+          "best_val_loss": 0.5021,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 47.6,
+          "eta_seconds": 119.0
+        },
+        {
+          "epoch": 11,
+          "total_epochs": 35,
+          "progress_pct": 31,
+          "train_loss": 0.161,
+          "val_loss": 0.5021,
+          "train_acc": 92.06,
+          "val_acc": 79.19,
+          "best_val_loss": 0.5021,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 48.1,
+          "eta_seconds": 105.1
+        },
+        {
+          "epoch": 12,
+          "total_epochs": 35,
+          "progress_pct": 34,
+          "train_loss": 0.16,
+          "val_loss": 0.5113,
+          "train_acc": 92.18,
+          "val_acc": 78.92,
+          "best_val_loss": 0.5021,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 48.7,
+          "eta_seconds": 93.3
+        },
+        {
+          "epoch": 13,
+          "total_epochs": 35,
+          "progress_pct": 37,
+          "train_loss": 0.1573,
+          "val_loss": 0.5049,
+          "train_acc": 92.47,
+          "val_acc": 78.92,
+          "best_val_loss": 0.5021,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 49.2,
+          "eta_seconds": 83.3
+        },
+        {
+          "epoch": 14,
+          "total_epochs": 35,
+          "progress_pct": 40,
+          "train_loss": 0.1581,
+          "val_loss": 0.5054,
+          "train_acc": 92.41,
+          "val_acc": 78.92,
+          "best_val_loss": 0.5021,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 50.0,
+          "eta_seconds": 75.0
+        },
+        {
+          "epoch": 15,
+          "total_epochs": 35,
+          "progress_pct": 42,
+          "train_loss": 0.1573,
+          "val_loss": 0.5,
+          "train_acc": 92.58,
+          "val_acc": 78.92,
+          "best_val_loss": 0.5,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 50.7,
+          "eta_seconds": 67.6
+        },
+        {
+          "epoch": 16,
+          "total_epochs": 35,
+          "progress_pct": 45,
+          "train_loss": 0.1552,
+          "val_loss": 0.4977,
+          "train_acc": 92.7,
+          "val_acc": 78.92,
+          "best_val_loss": 0.4977,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 51.5,
+          "eta_seconds": 61.2
+        },
+        {
+          "epoch": 17,
+          "total_epochs": 35,
+          "progress_pct": 48,
+          "train_loss": 0.1534,
+          "val_loss": 0.5013,
+          "train_acc": 92.76,
+          "val_acc": 78.65,
+          "best_val_loss": 0.4977,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 52.3,
+          "eta_seconds": 55.4
+        },
+        {
+          "epoch": 18,
+          "total_epochs": 35,
+          "progress_pct": 51,
+          "train_loss": 0.1527,
+          "val_loss": 0.5027,
+          "train_acc": 92.82,
+          "val_acc": 78.65,
+          "best_val_loss": 0.4977,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 53.1,
+          "eta_seconds": 50.1
+        },
+        {
+          "epoch": 19,
+          "total_epochs": 35,
+          "progress_pct": 54,
+          "train_loss": 0.1496,
+          "val_loss": 0.5076,
+          "train_acc": 93.28,
+          "val_acc": 78.92,
+          "best_val_loss": 0.4977,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 53.9,
+          "eta_seconds": 45.4
+        },
+        {
+          "epoch": 20,
+          "total_epochs": 35,
+          "progress_pct": 57,
+          "train_loss": 0.1482,
+          "val_loss": 0.5017,
+          "train_acc": 93.45,
+          "val_acc": 78.92,
+          "best_val_loss": 0.4977,
+          "best_val_score": 79.19,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 54.8,
+          "eta_seconds": 41.1
+        },
+        {
+          "epoch": 21,
+          "total_epochs": 35,
+          "progress_pct": 60,
+          "train_loss": 0.147,
+          "val_loss": 0.5116,
+          "train_acc": 93.45,
+          "val_acc": 79.73,
+          "best_val_loss": 0.4977,
+          "best_val_score": 79.73,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 55.6,
+          "eta_seconds": 37.1
+        },
+        {
+          "epoch": 22,
+          "total_epochs": 35,
+          "progress_pct": 62,
+          "train_loss": 0.1451,
+          "val_loss": 0.5083,
+          "train_acc": 93.51,
+          "val_acc": 80.54,
+          "best_val_loss": 0.4977,
+          "best_val_score": 80.54,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 56.3,
+          "eta_seconds": 33.3
+        },
+        {
+          "epoch": 23,
+          "total_epochs": 35,
+          "progress_pct": 65,
+          "train_loss": 0.1433,
+          "val_loss": 0.508,
+          "train_acc": 93.68,
+          "val_acc": 80.81,
+          "best_val_loss": 0.4977,
+          "best_val_score": 80.81,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 57.1,
+          "eta_seconds": 29.8
+        },
+        {
+          "epoch": 24,
+          "total_epochs": 35,
+          "progress_pct": 68,
+          "train_loss": 0.1412,
+          "val_loss": 0.5043,
+          "train_acc": 93.74,
+          "val_acc": 81.08,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 58.0,
+          "eta_seconds": 26.6
+        },
+        {
+          "epoch": 25,
+          "total_epochs": 35,
+          "progress_pct": 71,
+          "train_loss": 0.1395,
+          "val_loss": 0.5035,
+          "train_acc": 93.8,
+          "val_acc": 80.81,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 58.8,
+          "eta_seconds": 23.5
+        },
+        {
+          "epoch": 26,
+          "total_epochs": 35,
+          "progress_pct": 74,
+          "train_loss": 0.139,
+          "val_loss": 0.5075,
+          "train_acc": 93.92,
+          "val_acc": 79.73,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 59.7,
+          "eta_seconds": 20.7
+        },
+        {
+          "epoch": 27,
+          "total_epochs": 35,
+          "progress_pct": 77,
+          "train_loss": 0.1375,
+          "val_loss": 0.5114,
+          "train_acc": 93.92,
+          "val_acc": 78.65,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 60.7,
+          "eta_seconds": 18.0
+        },
+        {
+          "epoch": 28,
+          "total_epochs": 35,
+          "progress_pct": 80,
+          "train_loss": 0.1364,
+          "val_loss": 0.508,
+          "train_acc": 94.03,
+          "val_acc": 79.19,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 61.7,
+          "eta_seconds": 15.4
+        },
+        {
+          "epoch": 29,
+          "total_epochs": 35,
+          "progress_pct": 82,
+          "train_loss": 0.1346,
+          "val_loss": 0.5119,
+          "train_acc": 94.21,
+          "val_acc": 78.11,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 62.7,
+          "eta_seconds": 13.0
+        },
+        {
+          "epoch": 30,
+          "total_epochs": 35,
+          "progress_pct": 85,
+          "train_loss": 0.1341,
+          "val_loss": 0.5173,
+          "train_acc": 94.21,
+          "val_acc": 77.3,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 63.8,
+          "eta_seconds": 10.6
+        },
+        {
+          "epoch": 31,
+          "total_epochs": 35,
+          "progress_pct": 88,
+          "train_loss": 0.1331,
+          "val_loss": 0.5149,
+          "train_acc": 94.44,
+          "val_acc": 78.11,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 65.0,
+          "eta_seconds": 8.4
+        },
+        {
+          "epoch": 32,
+          "total_epochs": 35,
+          "progress_pct": 91,
+          "train_loss": 0.1328,
+          "val_loss": 0.5148,
+          "train_acc": 94.38,
+          "val_acc": 78.11,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 66.0,
+          "eta_seconds": 6.2
+        },
+        {
+          "epoch": 33,
+          "total_epochs": 35,
+          "progress_pct": 94,
+          "train_loss": 0.1319,
+          "val_loss": 0.5144,
+          "train_acc": 94.38,
+          "val_acc": 77.57,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 67.1,
+          "eta_seconds": 4.1
+        },
+        {
+          "epoch": 34,
+          "total_epochs": 35,
+          "progress_pct": 97,
+          "train_loss": 0.1311,
+          "val_loss": 0.5154,
+          "train_acc": 94.5,
+          "val_acc": 77.3,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 68.2,
+          "eta_seconds": 2.0
+        },
+        {
+          "epoch": 35,
+          "total_epochs": 35,
+          "progress_pct": 100,
+          "train_loss": 0.13,
+          "val_loss": 0.5221,
+          "train_acc": 94.55,
+          "val_acc": 77.57,
+          "best_val_loss": 0.4977,
+          "best_val_score": 81.08,
+          "learning_rate": 0.05,
+          "elapsed_seconds": 69.3,
+          "eta_seconds": 0.0
+        }
+      ]
+    }
+  }
+]

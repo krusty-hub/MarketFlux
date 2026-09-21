@@ -1,0 +1,11 @@
+{
+  "name": "marketflux",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "lint": "npm run lint --prefix frontend",
+    "install:all": "npm install --prefix frontend && pip install -r requirements.txt"
+  }
+}
