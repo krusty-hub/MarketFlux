@@ -1,5 +1,5 @@
 fastapi
-uvicorn
+uvicorn[standard]
 pandas
 numpy
 matplotlib
@@ -8,11 +8,10 @@ xgboost
 lightgbm
 requests
 joblib
-supabase
+supabase>=2.0.0
 python-dotenv
 ccxt
 yfinance
 twilio
-supabase-realtime-py
 tavily-python
-websockets
+websockets>=11.0
