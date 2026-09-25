@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Play, Activity, TrendingUp, TrendingDown, Target, Shield, Check, X } from 'lucide-react';
 import { forecastApi, tradesApi, modelsApi, type ModelItem } from '../services/api';
 import { useToast } from '../components/Toast';
-import { TermTooltip } from '../components/TermTooltip';
 import { useAuth } from '../auth/AuthContext';
 
 export const ForecastPage: React.FC = () => {

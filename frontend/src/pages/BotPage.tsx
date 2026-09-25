@@ -139,6 +139,7 @@ export const BotPage: React.FC<BotPageProps> = ({ setBotMode }) => {
   // ── Supabase Realtime Open Positions ──────────────────────────────────────
   useEffect(() => {
     const fetchPositions = async () => {
+      if (!supabase) return;
       const { data } = await supabase
         .from('paper_trades')
         .select('*')
@@ -148,19 +149,22 @@ export const BotPage: React.FC<BotPageProps> = ({ setBotMode }) => {
 
     fetchPositions();
 
+    if (!supabase) return;
     const channel = supabase
       .channel('custom-open-positions')
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'paper_trades', filter: "status=eq.OPEN" },
-        (payload) => {
+        (_payload) => {
           fetchPositions();
         }
       )
       .subscribe();
 
     return () => {
-      supabase.removeChannel(channel);
+      if (supabase) {
+        supabase.removeChannel(channel);
+      }
     };
   }, []);
 

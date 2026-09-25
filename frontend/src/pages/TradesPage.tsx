@@ -15,6 +15,11 @@ export const TradesPage: React.FC = () => {
       setLoading(true);
       setOffline(false);
       
+      if (!supabase) {
+        setOffline(true);
+        return;
+      }
+      
       const { data, error } = await supabase
         .from('paper_trades')
         .select('*')
