@@ -12,7 +12,6 @@ supabase
 python-dotenv
 ccxt
 yfinance
-pandas-ta   
 twilio
 supabase-realtime-py
 tavily-python
