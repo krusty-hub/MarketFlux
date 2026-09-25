@@ -1,6 +1,6 @@
 {
-  "status": "ONLINE",
-  "mode": "live",
+  "status": "STOPPED",
+  "mode": "paper",
   "strategy_name": "SMC Liquidity & Institutional Confluence v3.0",
   "active_model_id": "BTCUSDT_5m",
   "balance": 10000.0,

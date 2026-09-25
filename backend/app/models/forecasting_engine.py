@@ -7,7 +7,7 @@ from __future__ import annotations
 import logging
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Any
 
 import numpy as np
 import pandas as pd
@@ -135,11 +135,13 @@ def _model_path(symbol: str, timeframe: str) -> Path:
     return MODEL_DIR / f"{symbol}_{timeframe}.joblib"
 
 
-def load_active_model(symbol: str, timeframe: str) -> Optional[InstitutionalForecastModel]:
+def load_active_model(symbol: str, timeframe: str) -> Optional[Any]:
     path = _model_path(symbol, timeframe)
     if path.exists():
         try:
-            return InstitutionalForecastModel.load(path)
+            mdl = joblib.load(path)
+            log.info(f"Model loaded ← {path} (version={getattr(mdl, 'version', 'unknown')})")
+            return mdl
         except Exception as e:
             log.warning(f"Could not load model from {path}: {e}")
     return None

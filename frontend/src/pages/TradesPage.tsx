@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { RefreshCw } from 'lucide-react';
-import { signalsApi } from '../services/api';
+import { supabase } from '../lib/supabase';
 import { TermTooltip } from '../components/TermTooltip';
 import { EmptyState, OfflineState, LoadingState } from '../components/StatusStates';
 
@@ -14,14 +14,19 @@ export const TradesPage: React.FC = () => {
     try {
       setLoading(true);
       setOffline(false);
-      const res = await signalsApi.getHistory(50);
-      if (res?.offline) {
-        setOffline(true);
-        setTrades([]);
-      } else {
-        setTrades(res?.trades || []);
-      }
-    } catch {
+      
+      const { data, error } = await supabase
+        .from('paper_trades')
+        .select('*')
+        .eq('status', 'CLOSED')
+        .order('created_at', { ascending: false })
+        .limit(100);
+        
+      if (error) throw error;
+      setTrades(data || []);
+      
+    } catch (err) {
+      console.error("Supabase trades error:", err);
       setOffline(true);
       setTrades([]);
     } finally {
@@ -34,13 +39,15 @@ export const TradesPage: React.FC = () => {
   }, [loadTrades]);
 
   const filteredTrades = trades.filter((t) => {
+    const isWin = t.realized_pnl > 0;
+    const outcome = isWin ? 'WIN' : t.realized_pnl < 0 ? 'LOSS' : 'ALL';
     if (filterOutcome === 'ALL') return true;
-    return t.actual_outcome === filterOutcome;
+    return outcome === filterOutcome;
   });
 
-  const totalPnl = trades.reduce((sum, t) => sum + (t.pnl ?? (t.actual_outcome === 'WIN' ? 45.0 : t.actual_outcome === 'LOSS' ? -22.5 : 0)), 0);
-  const wins = trades.filter((t) => t.actual_outcome === 'WIN').length;
-  const losses = trades.filter((t) => t.actual_outcome === 'LOSS').length;
+  const totalPnl = trades.reduce((sum, t) => sum + (t.realized_pnl || 0), 0);
+  const wins = trades.filter((t) => t.realized_pnl > 0).length;
+  const losses = trades.filter((t) => t.realized_pnl < 0).length;
   const winRate = trades.length > 0 ? ((wins / trades.length) * 100).toFixed(1) : null;
 
   return (
@@ -160,18 +167,19 @@ export const TradesPage: React.FC = () => {
                 </thead>
                 <tbody>
                   {filteredTrades.map((t, i) => {
-                    const isWin = t.actual_outcome === 'WIN';
-                    const isLoss = t.actual_outcome === 'LOSS';
-                    const isLong = t.direction === 'BUY' || t.direction === 'LONG';
-                    const pnlVal = t.pnl ?? (isWin ? 45.0 : isLoss ? -22.5 : 0);
+                    const isWin = t.realized_pnl > 0;
+                    const isLoss = t.realized_pnl < 0;
+                    const isLong = t.direction === 'LONG';
+                    const pnlVal = t.realized_pnl || 0;
+                    const outcome = isWin ? 'WIN' : isLoss ? 'LOSS' : 'BREAK-EVEN';
 
                     return (
                       <tr key={t.id || i}>
                         <td className="font-mono text-xs text-[var(--text-muted)]">
-                          {t.timestamp ? new Date(t.timestamp).toLocaleString() : 'Recent'}
+                          {t.created_at ? new Date(t.created_at).toLocaleString() : 'Recent'}
                         </td>
                         <td className="font-mono font-medium text-[var(--text-primary)]">
-                          {t.pair || t.symbol || 'BTC / USDT'}
+                          {t.symbol || 'BTC / USDT'}
                         </td>
                         <td className="font-mono text-xs">
                           <span className={`px-2 py-0.5 rounded font-semibold ${
@@ -181,16 +189,16 @@ export const TradesPage: React.FC = () => {
                           </span>
                         </td>
                         <td className="font-mono text-xs text-[var(--text-secondary)]">
-                          ${t.market_price || t.entry_price || '—'}
+                          ${t.entry_price || '—'}
                         </td>
                         <td className="font-mono text-xs text-[var(--text-secondary)]">
-                          ${t.actual_close_price || t.exit_price || '—'}
+                          ${t.stop_loss || '—'}
                         </td>
                         <td className="font-mono text-xs font-semibold">
                           <span className={`px-2 py-0.5 rounded ${
                             isWin ? 'text-[var(--accent-fresh)] bg-[var(--green-subtle)]' : isLoss ? 'text-[var(--red)] bg-[var(--red-subtle)]' : 'text-[var(--text-muted)]'
                           }`}>
-                            {t.actual_outcome || 'RESOLVED'}
+                            {outcome}
                           </span>
                         </td>
                         <td className={`font-mono text-xs font-semibold ${pnlVal >= 0 ? 'text-[var(--accent-fresh)]' : 'text-[var(--red)]'}`}>

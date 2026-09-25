@@ -157,6 +157,61 @@ export interface BotStatusData {
   [key: string]: any;
 }
 
+export interface ExecuteTradeParams {
+  symbol: string;
+  direction: 'LONG' | 'SHORT';
+  entry_price?: number;
+  size?: number;
+  notional_usd?: number;
+  stop_loss?: number;
+  take_profit?: number;
+}
+
+export interface TradeExecutionResult {
+  executed: boolean;
+  reason?: string;
+  position?: any;
+  margin_used?: number;
+  remaining_balance?: number;
+}
+
+export interface ClosePositionResult {
+  closed: boolean;
+  position?: any;
+  realized_pnl?: number;
+  new_balance?: number;
+}
+
+export interface PriceFeedStatus {
+  running: boolean;
+  tracked_symbols: string[];
+  cached_prices: Record<string, number>;
+  last_update: Record<string, number>;
+  subscriber_count: number;
+}
+
+export interface WsMessage {
+  type: string;
+  prices: Record<string, number>;
+  price_feed_active: boolean;
+  portfolio?: {
+    paper_balance: number;
+    equity: number;
+    today_pnl: number;
+    unrealized_pnl: number;
+  };
+  positions?: Array<{
+    id: string;
+    full_id: string;
+    symbol: string;
+    direction: string;
+    entry_price: number;
+    current_price: number;
+    unrealized_pnl: number;
+    status: string;
+  }>;
+}
+
 // ── API MODULES ──
 
 export const marketApi = {
@@ -198,6 +253,10 @@ export const forecastApi = {
     const res = await apiClient.get('/forecasts/latest');
     return res.data;
   },
+  analyze: async (config: any): Promise<any> => {
+    const res = await apiClient.post('/forecast/analyze', config);
+    return res.data;
+  }
 };
 
 export const signalsApi = {
@@ -231,6 +290,85 @@ export const botApi = {
   updateRisk: async (riskConfig: Record<string, any>) => {
     const res = await apiClient.post('/bot/risk-config', riskConfig);
     return res.data;
+  },
+
+  // ── NEW: Paper Trading Execution ──
+
+  executeTrade: async (params: ExecuteTradeParams): Promise<TradeExecutionResult> => {
+    const res = await apiClient.post('/bot/execute', params);
+    return res.data;
+  },
+
+  closePosition: async (positionId: string, closePrice?: number): Promise<ClosePositionResult> => {
+    const res = await apiClient.post(`/bot/close-position/${positionId}`, {
+      close_price: closePrice,
+    });
+    return res.data;
+  },
+
+  getPortfolio: async () => {
+    const res = await apiClient.get('/bot/portfolio');
+    return res.data;
+  },
+
+  resetPortfolio: async () => {
+    const res = await apiClient.post('/bot/portfolio/reset');
+    return res.data;
+  },
+
+  getPositions: async () => {
+    const res = await apiClient.get('/bot/positions');
+    return res.data;
+  },
+
+  getPositionHistory: async (limit: number = 50) => {
+    const res = await apiClient.get(`/bot/positions/history?limit=${limit}`);
+    return res.data;
+  },
+
+  getActivityLogs: async (limit: number = 30) => {
+    const res = await apiClient.get(`/bot/activity-logs?limit=${limit}`);
+    return res.data;
+  },
+
+  getPriceFeedStatus: async (): Promise<PriceFeedStatus> => {
+    const res = await apiClient.get('/bot/price-feed');
+    return res.data;
+  },
+
+  // ── WebSocket Connection ──
+
+  connectWebSocket: (
+    userId?: string,
+    onMessage?: (data: WsMessage) => void,
+    onError?: (err: Event) => void,
+    onClose?: () => void,
+  ): WebSocket => {
+    const wsBase = API_BASE_URL.replace(/^http/, 'ws');
+    const url = userId
+      ? `${wsBase}/bot/ws?user_id=${userId}`
+      : `${wsBase}/bot/ws`;
+
+    const ws = new WebSocket(url);
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        onMessage?.(data);
+      } catch {
+        // ignore parse errors
+      }
+    };
+
+    ws.onerror = (err) => {
+      onError?.(err);
+    };
+
+    ws.onclose = () => {
+      onClose?.();
+    };
+
+    return ws;
   },
 };
 
@@ -334,3 +472,12 @@ export const backtestApi = {
     return res.data;
   },
 };
+
+
+export const tradesApi = {
+  execute: async (tradeData: any): Promise<any> => {
+    const res = await apiClient.post('/trades/execute', tradeData);
+    return res.data;
+  }
+};
+

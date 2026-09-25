@@ -1,0 +1,83 @@
+{
+  "symbol": "BTCUSDT",
+  "timeframe": "5m",
+  "model_type": "xgboost",
+  "version": "v20260924_1452",
+  "training_date": "2026-09-24T14:52:34.581455+00:00",
+  "trained": true,
+  "metrics": {
+    "best_val_loss": 0.2367,
+    "best_val_score": 92.41,
+    "test_accuracy": 97.95,
+    "test_precision": 0.0,
+    "test_recall": 0.0,
+    "test_f1": 0.0,
+    "test_roc_auc": 0.2517,
+    "directional_accuracy": 97.95,
+    "backtest_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": 0.0,
+    "total_trades": 0,
+    "winning_trades": 0,
+    "losing_trades": 0,
+    "win_rate_pct": 0.0,
+    "cv_mean_accuracy": 65.68,
+    "duration_seconds": 34.8
+  },
+  "hyperparameters": {
+    "epochs": 5,
+    "batch_size": 32,
+    "learning_rate": 0.05,
+    "train_split": 0.7,
+    "val_split": 0.15,
+    "test_split": 0.15,
+    "risk_pct": 0.005,
+    "lookahead": 20,
+    "random_seed": 42,
+    "cv_folds": 3,
+    "data_source": "local",
+    "total_samples": 967
+  },
+  "feature_count": 67,
+  "feature_importance_top10": {
+    "ema_21": 0.13909,
+    "ema_fast": 0.137739,
+    "ema_slow": 0.105426,
+    "ema_9": 0.09893,
+    "close_time": 0.097641,
+    "ema_200": 0.07149,
+    "dist_from_ema21": 0.069379,
+    "swing_high": 0.058958,
+    "dist_to_resistance_atr": 0.056193,
+    "ema_50": 0.050922
+  },
+  "cv_results": [
+    {
+      "fold": 1,
+      "accuracy": 87.57,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "roc_auc": 0.5,
+      "log_loss": 1.7168
+    },
+    {
+      "fold": 2,
+      "accuracy": 17.16,
+      "precision": 0.71,
+      "recall": 100.0,
+      "f1": 1.41,
+      "roc_auc": 0.2619,
+      "log_loss": 0.7302
+    },
+    {
+      "fold": 3,
+      "accuracy": 92.31,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "roc_auc": 0.5,
+      "log_loss": 0.3538
+    }
+  ]
+}

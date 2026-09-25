@@ -24,6 +24,7 @@ import { MarketsPage } from './pages/MarketsPage';
 import { TradesPage } from './pages/TradesPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { ForecastPage } from './pages/ForecastPage';
 import { botApi } from './services/api';
 
 /**
@@ -111,6 +112,7 @@ function App() {
                 <Route path="/backtest" element={<BacktestPage />} />
                 <Route path="/backtesting" element={<BacktestPage />} />
                 <Route path="/models" element={<ModelsPage />} />
+                <Route path="/forecast" element={<ForecastPage />} />
                 <Route path="/trades" element={<TradesPage />} />
                 <Route path="/analytics" element={<AnalyticsPage />} />
                 <Route path="/settings" element={<SettingsPage />} />

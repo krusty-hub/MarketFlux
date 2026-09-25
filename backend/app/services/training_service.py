@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Any, AsyncGenerator, Dict, List, Optional
 
 from ..config.settings import DATA_DIR
-from ..models.training_pipeline import run_pipeline, format_duration
+from ..models.training_pipeline_v2 import run_pipeline_v2, format_duration
 
 log = logging.getLogger("marketflux.training_service")
 JOBS_FILE = DATA_DIR / "training_jobs.json"
@@ -287,7 +287,7 @@ class TrainingJobManager:
             def _check_cancelled():
                 return job._cancel_flag
 
-            summary = run_pipeline(
+            summary = run_pipeline_v2(
                 job_id=job.id,
                 symbol=job.symbol,
                 timeframe=job.timeframe,
@@ -302,6 +302,8 @@ class TrainingJobManager:
                 risk_pct=job.risk_pct,
                 lookahead=job.lookahead,
                 random_seed=job.random_seed,
+                use_local_data=True,
+                cv_folds=3,
                 on_log=job.add_log,
                 on_epoch=job.update_metrics,
                 check_pause=_check_pause,

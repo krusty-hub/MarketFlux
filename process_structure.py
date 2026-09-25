@@ -149,7 +149,14 @@ def download_open_interest():
         params = {"symbol": SYMBOL, "period": OI_PERIOD, "startTime": start, "endTime": end, "limit": 500}
         
         response = requests.get(url, params=params, timeout=30)
-        response.raise_for_status()
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            if response.status_code == 400:
+                print(f"\nWarning: Open Interest fetch stopped (API Limit). Binance only provides the last 30 days.")
+                break
+            else:
+                raise
         data = response.json()
 
         if not data:
@@ -207,7 +214,7 @@ def detect_structure(df):
         df[col] = 0
 
     df["broken_swing_level"] = np.nan
-    df["break_candle_time"] = pd.NaT
+    df["break_candle_time"] = pd.Series(pd.NaT, index=df.index, dtype='datetime64[ns, UTC]')
     df["break_direction"] = ""
     df["structure_event"] = ""
     df["structure"] = "neutral"
@@ -300,9 +307,9 @@ def process_timeframe(label):
 if __name__ == "__main__":
     
     # 1. Download all required data
-    download_klines()
-    download_funding()
-    download_open_interest()
+    # download_klines()
+    # download_funding()
+    # download_open_interest()
     
     print("\n======================================")
     print("DOWNLOAD COMPLETE - STARTING STRUCTURE")

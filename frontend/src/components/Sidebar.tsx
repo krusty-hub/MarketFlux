@@ -41,6 +41,7 @@ const NAV_GROUPS = [
     items: [
       { to: '/models', label: 'Models', icon: Layers },
       { to: '/training', label: 'Training', icon: GraduationCap },
+      { to: '/forecast', label: 'AI Outlook', icon: FlaskConical },
     ],
   },
   {
