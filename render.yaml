@@ -1,0 +1,54 @@
+services:
+  # Backend: FastAPI Web Service
+  - type: web
+    name: marketflux-backend
+    runtime: python
+    rootDir: .
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: BINANCE_KLINES_URL
+        value: https://data-api.binance.vision/api/v3/klines
+      - key: BINANCE_TICKER_URL
+        value: https://data-api.binance.vision/api/v3/ticker/price
+      - key: ALPACA_URL
+        value: https://paper-api.alpaca.markets/v2
+      - key: SUPABASE_URL
+        value: https://sjwlhesqrjyqgvqnuxri.supabase.co
+      - key: ALPACA_API_KEY
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: ALPHAVANTAGE_API_KEY
+        sync: false
+      - key: TWELVEDATA_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+
+  # Frontend: React / Vite Static Site
+  - type: web
+    name: marketflux-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    plan: free
+    envVars:
+      - key: VITE_SUPABASE_URL
+        value: https://sjwlhesqrjyqgvqnuxri.supabase.co
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
+      - key: VITE_API_BASE_URL
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
