@@ -244,7 +244,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = () => {
         {!systemHealth.backendOnline && !initialLoading && (
           <OfflineState
             title="Backend Service Offline"
-            message="MarketFlux cannot connect to the local API server at localhost:8000. Start the backend with 'python -m uvicorn backend.app.main:app --port 8000' to access real-time trading features."
+            message="MarketFlux cannot connect to the API server. If deployed, check your VITE_API_BASE_URL environment variable. For local dev, ensure the backend is running."
             onRetry={() => {
               checkHealth();
               fetchPrices();
